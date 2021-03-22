@@ -1,8 +1,14 @@
 package com.zty.ztyshop.config;
 
+import com.zty.ztyshop.handler.LoginHandlerInterceptor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author 李佳 lijia@autoai.com
@@ -15,11 +21,24 @@ public class SpringMvcConfig implements WebMvcConfigurer {
     /**
      * 不需要登录拦截的url
      */
-    final String[] notLoginInterceptPaths = {"/static/**","/sysUser/login","/error/**","/login"};
+    private static final List<String> EXCLUDE_PATH
+            = Arrays.asList("/", "/css/**", "/fonts/**", "/images/**", "/js/**", "/lib/**",
+            "/sysUser/login");
 
+
+    @Autowired
+    private LoginHandlerInterceptor loginHandler;
 
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/").setViewName("login");
+        registry.addViewController("").setViewName("login");
+    }
+
+    @Override
+    public void addInterceptors(InterceptorRegistry registry) {
+        registry.addInterceptor(loginHandler)
+                .addPathPatterns("/**")
+                .excludePathPatterns(EXCLUDE_PATH);
+
     }
 }

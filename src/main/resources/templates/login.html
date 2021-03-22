@@ -62,9 +62,11 @@
                             localStorage.setItem(data.field.username, res.data.token);
 
                             //跳转
-                            layer.msg("登录成功", function () {
+                            layer.msg("登录成功", {
+                                time: 250
+                            }, function () {
                                 //首页
-                                location.href = 'index'
+                                location.href = 'index?token=' + res.data.token;
                             });
                         }
                     }

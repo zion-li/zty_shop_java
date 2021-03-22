@@ -10,12 +10,12 @@ public enum ErrorCodeEnum {
     /**
      * 参数异常
      */
+    PASSWORD_ERROR(403, "用户不从在或者密码错误，请重试"),
     PARAM_ERROR(4001, "参数异常"),
     PHONE_ERROR(4002, "手机号错误"),
     SIGN_ERROR(4003, "签名异常"),
     PHONE_EXIT(4004, "手机号已经存在，请直接登录"),
     CODE_ERROR(4005, "验证码错误"),
-    PASSWORD_ERROR(4006, "用户不从在或者密码错误，请重试"),
     MD5_ERROR(4007, "MD5加密错误"),
     JWT_ERROR(4008, "验签异常"),
     REGIST_ERROR(40009, "用户注册错误，请重试"),

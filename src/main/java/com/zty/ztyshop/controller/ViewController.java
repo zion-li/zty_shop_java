@@ -1,8 +1,13 @@
 package com.zty.ztyshop.controller;
 
+import com.zty.ztyshop.utils.CurrentUserUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * 所有页面跳转都写在这
@@ -27,6 +32,7 @@ public class ViewController {
      */
     @RequestMapping(value = "/index")
     public ModelAndView test(ModelAndView mv) {
+        mv.addObject("userName", CurrentUserUtils.getUser().getUsername());
         mv.setViewName("index");
         return mv;
     }

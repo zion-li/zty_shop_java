@@ -26,4 +26,11 @@ public class SysUserController {
         return BaseResponseVO.success(userService.userLogin(loginParam.getUsername(), loginParam.getPassword()));
     }
 
+    @PostMapping("/logOut")
+    public BaseResponseVO Login(@RequestBody String userName) {
+
+        return BaseResponseVO.success();
+    }
+
+
 }

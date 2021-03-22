@@ -1,5 +1,6 @@
 package com.zty.ztyshop.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Maps;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
@@ -29,28 +30,35 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
 
     @Autowired
+    private SysUserMapper userMapper;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Override
     public UserVO userLogin(String userName, String password) {
+        //查询用户
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(SysUser::getUsername, userName);
+        SysUser user = userMapper.selectOne(queryWrapper);
 
-        String innerPass = "";
         //密码检查
-//        if (!passwordEncoder.matches(password, innerPass)) {
-//            throw new CommonServiceException(ErrorCodeEnum.PASSWORD_ERROR);
-//        }
-
+        if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
+            throw new CommonServiceException(ErrorCodeEnum.PASSWORD_ERROR);
+        }
 
         UserVO result = new UserVO();
+        result.setUserName(user.getUsername());
         //生成token
-        result.setToken(createToken(userName));
+        result.setToken(createToken(user.getId().toString(), userName));
         return result;
     }
 
 
-    private String createToken(String userName) {
+    private String createToken(String userId, String userName) {
         //生成token
         Map<String, Object> claim = Maps.newHashMap();
+        claim.put("userId", userId);
         claim.put("userName", userName);
         return JwtUtils.generate(claim);
     }
