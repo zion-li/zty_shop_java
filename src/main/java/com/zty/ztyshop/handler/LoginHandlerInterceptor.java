@@ -3,6 +3,7 @@ package com.zty.ztyshop.handler;
 import com.google.common.collect.Maps;
 import com.zty.ztyshop.dao.entity.SysUser;
 import com.zty.ztyshop.service.ISysUserService;
+import com.zty.ztyshop.utils.CaffeineUtils;
 import com.zty.ztyshop.utils.CurrentUserUtils;
 import com.zty.ztyshop.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
@@ -43,22 +44,26 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             token = request.getHeader("token");
         }
 
+
         //token 不为空 && token 正确 && token没有过期
-        if (StringUtils.isNotBlank(token) && JwtUtils.verify(token) && !JwtUtils.isExpired(token)) {
+        if (StringUtils.isNotBlank(token) && StringUtils.isNotBlank(CaffeineUtils.JWT_KEY.getIfPresent(token))
+                && JwtUtils.verify(token) && !JwtUtils.isExpired(token)) {
             Claims claims = JwtUtils.getClaim(token);
             if (claims != null) {
                 SysUser userInfo = sysUserService.getById((String) claims.get("userId"));
                 if (null != userInfo) {
+                    userInfo.setPassword(token);
                     CurrentUserUtils.setUser(userInfo);
                     return true;
                 }
             }
         }
-        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-        response.setContentType("application/json; charset=UTF-8");
-        response.getWriter().write("{\"code\":\"403\",\"message\":\"用户不从在或者密码错误，请重试\",\"data\":\"\"}");
-        response.getWriter().flush();
-        return false;
+        return true;
+//        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+//        response.setContentType("application/json; charset=UTF-8");
+//        response.getWriter().write("{\"code\":\"403\",\"message\":\"用户不从在或者密码错误，请重试\",\"data\":\"\"}");
+//        response.getWriter().flush();
+//        return false;
     }
 
     @Override

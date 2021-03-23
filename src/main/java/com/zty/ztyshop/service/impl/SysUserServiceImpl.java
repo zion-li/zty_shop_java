@@ -10,6 +10,7 @@ import com.zty.ztyshop.dao.entity.SysUser;
 import com.zty.ztyshop.dao.mapper.SysUserMapper;
 import com.zty.ztyshop.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zty.ztyshop.utils.CaffeineUtils;
 import com.zty.ztyshop.utils.JwtUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,6 +52,9 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         result.setUserName(user.getUsername());
         //生成token
         result.setToken(createToken(user.getId().toString(), userName));
+
+        //缓存key
+        CaffeineUtils.JWT_KEY.put(result.getToken(), user.getId().toString());
         return result;
     }
 

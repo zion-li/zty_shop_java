@@ -344,20 +344,24 @@
             //监听提交
             form.on('submit(logOut)', function (data) {
 
+                var userName = '[[${userName}]]';
                 var userJson = {};
-                userJson['userName'] = localStorage.getItem(data.field.username);
-
+                userJson['userName'] = userName;
+                userJson['token'] = localStorage.getItem(userName);
                 //使用ajax发送请求
                 $.ajax({
-                    url: "http://127.0.0.1:8080/sysUser/logOut",
+                    url: "http://127.0.0.1:8080/sysUser/logOut?token=" + localStorage.getItem(userName),
                     type: "post",
                     dataType: "json",
                     contentType: 'application/json;charset=UTF-8',
                     data: JSON.stringify(userJson),
-
                     success: function (res) {
-                        //首页
-                        location.href = '';
+                        if (res.code != 200) {
+                            layer.msg("登出失败");
+                        } else {
+                            //首页
+                            location.href = '/';
+                        }
                     }
                 });
 

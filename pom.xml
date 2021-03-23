@@ -39,6 +39,7 @@
         <io.version>2.6</io.version>
         <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <jjwt.version>1.0.1</jjwt.version>
+        <caffeine.version>2.8.6</caffeine.version>
     </properties>
 
 
@@ -86,6 +87,11 @@
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
             <version>${guava.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.ben-manes.caffeine</groupId>
+            <artifactId>caffeine</artifactId>
+            <version>${caffeine.version}</version>
         </dependency>
         <dependency>
             <groupId>commons-collections</groupId>
