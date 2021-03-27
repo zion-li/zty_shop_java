@@ -10,7 +10,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-03-21
+ * @since 2021-03-27
  */
 public class SysUser extends Model<SysUser> {
 
