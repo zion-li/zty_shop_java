@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zty.ztyshop.dao.mapper.OrderInfoMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.zty.ztyshop.dao.entity.OrderInfo">
+        <id column="id" property="id" />
+        <result column="client_id" property="clientId" />
+        <result column="staff_id" property="staffId" />
+        <result column="cash_type" property="cashType" />
+        <result column="cash_account" property="cashAccount" />
+        <result column="cash_jf" property="cashJf" />
+        <result column="cash_jf_assistant" property="cashJfAssistant" />
+        <result column="cash_tf" property="cashTf" />
+        <result column="cash_tf_assistant" property="cashTfAssistant" />
+        <result column="cash_rf" property="cashRf" />
+        <result column="cash_rf_assistant" property="cashRfAssistant" />
+        <result column="cash_tp" property="cashTp" />
+        <result column="cash_tp_assistant" property="cashTpAssistant" />
+        <result column="cash_zx" property="cashZx" />
+        <result column="cash_zx_assistant" property="cashZxAssistant" />
+        <result column="cash_yy" property="cashYy" />
+        <result column="cash_yy_assistant" property="cashYyAssistant" />
+        <result column="cash_sx" property="cashSx" />
+        <result column="cash_sx_assistant" property="cashSxAssistant" />
+        <result column="cash_sj" property="cashSj" />
+        <result column="cash_sj_assistant" property="cashSjAssistant" />
+        <result column="cash_sp" property="cashSp" />
+        <result column="cash_sp_desc" property="cashSpDesc" />
+        <result column="cash_sp_assistant" property="cashSpAssistant" />
+        <result column="create_at" property="createAt" />
+        <result column="update_at" property="updateAt" />
+        <result column="is_delete" property="isDelete" />
+    </resultMap>
+</mapper>
