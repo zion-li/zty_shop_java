@@ -2,15 +2,18 @@ package com.zty.ztyshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Maps;
+import com.zty.ztyshop.common.BaseResponseVO;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
 import com.zty.ztyshop.config.PasswordEncoder;
+import com.zty.ztyshop.controller.bo.SysUserBO;
 import com.zty.ztyshop.controller.vo.UserVO;
 import com.zty.ztyshop.dao.entity.SysUser;
 import com.zty.ztyshop.dao.mapper.SysUserMapper;
 import com.zty.ztyshop.service.ISysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zty.ztyshop.utils.CaffeineUtils;
+import com.zty.ztyshop.utils.CurrentUserUtils;
 import com.zty.ztyshop.utils.JwtUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,13 +52,25 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         }
 
         UserVO result = new UserVO();
+        result.setUserId(user.getId());
         result.setUserName(user.getUsername());
         //生成token
         result.setToken(createToken(user.getId().toString(), userName));
 
         //缓存key
-        CaffeineUtils.JWT_KEY.put(result.getToken(), user.getId().toString());
+        CaffeineUtils.JWT_KEY.put(result.getToken(), user.getId());
+
         return result;
+    }
+
+    @Override
+    public Boolean Login() {
+        SysUserBO user = CurrentUserUtils.getUser();
+        if (user != null) {
+            CaffeineUtils.JWT_KEY.invalidate(user.getToken());
+        }
+        //缓存key
+        return true;
     }
 
 

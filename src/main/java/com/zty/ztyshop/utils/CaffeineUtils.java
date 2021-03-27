@@ -12,7 +12,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CaffeineUtils {
 
-    public static Cache<String, String> JWT_KEY = Caffeine.newBuilder()
+    public static Cache<String, Integer> JWT_KEY = Caffeine.newBuilder()
             .expireAfterWrite(7, TimeUnit.DAYS)
             .maximumSize(512)
             .build();

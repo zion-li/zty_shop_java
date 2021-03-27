@@ -23,4 +23,9 @@ public interface ISysUserService extends IService<SysUser> {
      */
     UserVO userLogin(String userName, String password);
 
+    /**
+     * 登出
+     * @return
+     */
+    Boolean Login();
 }

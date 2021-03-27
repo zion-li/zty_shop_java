@@ -1,6 +1,7 @@
 package com.zty.ztyshop.handler;
 
 import com.google.common.collect.Maps;
+import com.zty.ztyshop.controller.bo.SysUserBO;
 import com.zty.ztyshop.dao.entity.SysUser;
 import com.zty.ztyshop.service.ISysUserService;
 import com.zty.ztyshop.utils.CaffeineUtils;
@@ -9,6 +10,7 @@ import com.zty.ztyshop.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -46,24 +48,28 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
 
         //token 不为空 && token 正确 && token没有过期
-        if (StringUtils.isNotBlank(token) && StringUtils.isNotBlank(CaffeineUtils.JWT_KEY.getIfPresent(token))
+        if (StringUtils.isNotBlank(token) && CaffeineUtils.JWT_KEY.getIfPresent(token) == null
                 && JwtUtils.verify(token) && !JwtUtils.isExpired(token)) {
+
             Claims claims = JwtUtils.getClaim(token);
             if (claims != null) {
                 SysUser userInfo = sysUserService.getById((String) claims.get("userId"));
                 if (null != userInfo) {
-                    userInfo.setPassword(token);
-                    CurrentUserUtils.setUser(userInfo);
+                    SysUserBO userBO = new SysUserBO();
+                    BeanUtils.copyProperties(userInfo, userBO);
+                    userBO.setToken(token);
+
+                    //直接放缓存里
+                    CurrentUserUtils.setUser(userBO);
                     return true;
                 }
             }
         }
-        return true;
-//        response.setStatus(HttpStatus.UNAUTHORIZED.value());
-//        response.setContentType("application/json; charset=UTF-8");
-//        response.getWriter().write("{\"code\":\"403\",\"message\":\"用户不从在或者密码错误，请重试\",\"data\":\"\"}");
-//        response.getWriter().flush();
-//        return false;
+        response.setStatus(HttpStatus.UNAUTHORIZED.value());
+        response.setContentType("application/json; charset=UTF-8");
+        response.getWriter().write("{\"code\":\"403\",\"message\":\"用户验签失败，请重新登录\",\"data\":\"\"}");
+        response.getWriter().flush();
+        return false;
     }
 
     @Override

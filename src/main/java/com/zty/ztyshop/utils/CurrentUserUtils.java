@@ -2,6 +2,7 @@ package com.zty.ztyshop.utils;
 
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
+import com.zty.ztyshop.controller.bo.SysUserBO;
 import com.zty.ztyshop.dao.entity.SysUser;
 
 /**
@@ -14,7 +15,7 @@ public class CurrentUserUtils {
     /**
      * 当前用户信息
      */
-    private static final ThreadLocal<SysUser> currentUser = new ThreadLocal<>();
+    private static final ThreadLocal<SysUserBO> currentUser = new ThreadLocal<>();
 
 
     /**
@@ -22,7 +23,7 @@ public class CurrentUserUtils {
      *
      * @param user
      */
-    public static void setUser(SysUser user) {
+    public static void setUser(SysUserBO user) {
         currentUser.set(user);
     }
 
@@ -31,8 +32,8 @@ public class CurrentUserUtils {
      *
      * @return
      */
-    public static SysUser getUser() {
-        SysUser user = currentUser.get();
+    public static SysUserBO getUser() {
+        SysUserBO user = currentUser.get();
         if (null == user) {
             throw new CommonServiceException(ErrorCodeEnum.USER_ID_NOT_EXIST_ERROR);
         }
