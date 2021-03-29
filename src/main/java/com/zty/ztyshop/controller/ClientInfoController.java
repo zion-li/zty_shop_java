@@ -93,7 +93,7 @@ public class ClientInfoController {
 
 
     /**
-     * 详情
+     * 详情（30天新增用户）
      *
      * @return
      */
@@ -104,7 +104,7 @@ public class ClientInfoController {
     }
 
     /**
-     * 详情
+     * 详情（30天老用户回访）
      *
      * @return
      */
@@ -112,6 +112,17 @@ public class ClientInfoController {
     public BaseResponseVO statisticsOldLast30Days(@RequestParam(required = false) Integer type) {
         //1：月
         return BaseResponseVO.success(clientInfoService.statisticsOldLast30Days(type));
+    }
+
+    /**
+     * 详情（最近12个月新增用户）
+     *
+     * @return
+     */
+    @GetMapping("/statisticsAll")
+    public BaseResponseVO statisticsAll(@RequestParam(required = false) Integer type) {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsAll(type));
     }
 
 }

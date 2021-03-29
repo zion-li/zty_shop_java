@@ -187,6 +187,24 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         return res;
     }
 
+    @Override
+    public Map<String, Integer> statisticsAll(Integer type) {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLastYear();
+
+        LocalDate minDate = LocalDate.now().minusDays(365);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsAll(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
+    }
+
     private LocalDate getLocalDate(String dataStr) {
         if (StringUtils.isBlank(dataStr)) {
             return null;

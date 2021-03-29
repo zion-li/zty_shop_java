@@ -32,4 +32,6 @@ public interface IClientInfoService extends IService<ClientInfo> {
     Map<String, Integer> statisticsNewLast30Days(Integer type);
 
     Map<String, Integer>  statisticsOldLast30Days(Integer type);
+
+    Map<String, Integer> statisticsAll(Integer type);
 }

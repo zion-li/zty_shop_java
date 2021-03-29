@@ -49,4 +49,19 @@
         GROUP BY
             DATE_FORMAT( create_at, "%Y-%m-%d" )
     </select>
+
+
+    <select id="statisticsAll" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
+        SELECT
+	        DATE_FORMAT( create_at, "%Y-%m" ) AS `day`,
+	        COUNT( * ) AS account
+        FROM
+	        client_info
+        WHERE
+	        create_at >= #{minDate}
+        GROUP BY
+	        DATE_FORMAT( create_at, "%Y-%m" )
+    </select>
+
+
 </mapper>

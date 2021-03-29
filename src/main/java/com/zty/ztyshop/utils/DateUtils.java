@@ -22,4 +22,14 @@ public class DateUtils {
         }
         return res;
     }
+
+    public static Map<String, Integer> getLastYear() {
+        Map<String, Integer> res = Maps.newLinkedHashMap();
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM");
+        for (int i = 11; i >= 0; i--) {
+            res.put(localDate.minusMonths(i).format(formatter), 0);
+        }
+        return res;
+    }
 }

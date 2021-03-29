@@ -27,9 +27,10 @@ public interface ClientInfoMapper extends BaseMapper<ClientInfo> {
     List<StatisticsLast30DaysBO> statisticsNewLast30Days(@Param("minDate") LocalDate minDate);
 
     /**
-     *
      * @param maxDate
      * @return
      */
     List<StatisticsLast30DaysBO> statisticsOldLast30Days(@Param("maxDate") LocalDate maxDate);
+
+    List<StatisticsLast30DaysBO> statisticsAll(@Param("minDate") LocalDate minDate);
 }
