@@ -4,15 +4,49 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.zty.ztyshop.dao.entity.ClientInfo">
-        <id column="id" property="id" />
-        <result column="name" property="name" />
-        <result column="gender" property="gender" />
-        <result column="modile" property="modile" />
-        <result column="is_vip" property="isVip" />
-        <result column="client_level" property="clientLevel" />
-        <result column="account" property="account" />
-        <result column="birthday" property="birthday" />
-        <result column="last_login" property="lastLogin" />
-        <result column="create_at" property="createAt" />
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="gender" property="gender"/>
+        <result column="modile" property="modile"/>
+        <result column="is_vip" property="isVip"/>
+        <result column="client_level" property="clientLevel"/>
+        <result column="account" property="account"/>
+        <result column="birthday" property="birthday"/>
+        <result column="last_login" property="lastLogin"/>
+        <result column="create_at" property="createAt"/>
     </resultMap>
+
+    <select id="statisticsNewLast30Days" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
+        SELECT
+	        DATE_FORMAT( create_at, "%Y-%m-%d" ) AS `day`,
+	        COUNT( * ) AS account
+        FROM
+	        client_info
+        WHERE
+	        create_at >= #{minDate}
+        GROUP BY
+	        DATE_FORMAT( create_at, "%Y-%m-%d" )
+    </select>
+
+    <select id="statisticsOldLast30Days" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
+        SELECT
+            DATE_FORMAT( create_at, "%Y-%m-%d" ) AS `day`,
+            COUNT( DISTINCT client_id ) AS account
+        FROM
+        (
+            SELECT
+                o1.create_at,
+                o1.client_id
+            FROM
+                order_info o1
+                JOIN client_info c1
+                ON o1.client_id = c1.id AND c1.create_at <![CDATA[<]]> #{maxDate}
+            WHERE o1.create_at >=  #{maxDate}
+            GROUP BY
+                o1.client_id,
+                DATE_FORMAT( o1.create_at, "%Y-%m-%d" )
+        ) AS tmp
+        GROUP BY
+            DATE_FORMAT( create_at, "%Y-%m-%d" )
+    </select>
 </mapper>

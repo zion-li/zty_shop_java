@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
+import com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.ClientInfoParam;
 import com.zty.ztyshop.dao.entity.ClientInfo;
@@ -13,6 +14,7 @@ import com.zty.ztyshop.dao.entity.StaffLevel;
 import com.zty.ztyshop.dao.mapper.ClientInfoMapper;
 import com.zty.ztyshop.service.IClientInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zty.ztyshop.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -21,6 +23,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -44,7 +48,7 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         }
 
         if (null != param.getIsVip() && 1 == param.getIsVip().intValue()) {
-            if (StringUtils.isBlank(param.getModile())){
+            if (StringUtils.isBlank(param.getModile())) {
                 throw new CommonServiceException(ErrorCodeEnum.VIP_NEED_MOBILE);
             }
         }
@@ -134,7 +138,7 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         }
 
         if (StringUtils.isNotBlank(param.getBirthday())) {
-            updateWrapper.set(ClientInfo::getModile, getLocalDate(param.getBirthday()));
+            updateWrapper.set(ClientInfo::getBirthday, getLocalDate(param.getBirthday()));
         }
         //会员，需要用户姓名+手机号，别的无所谓
         return clientInfoMapper.update(null, updateWrapper) == 1;
@@ -145,6 +149,42 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         Page<ClientInfo> page = new Page<>(param.getPageNo(), param.getPageSize());
         Page<ClientInfo> userPage = clientInfoMapper.selectPage(page, null);
         return userPage;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsNewLast30Days(Integer type) {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast30Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(29);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast30Days(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsOldLast30Days(Integer type) {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast30Days();
+
+        LocalDate maxDate = LocalDate.now().minusDays(29);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsOldLast30Days(maxDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
     }
 
     private LocalDate getLocalDate(String dataStr) {

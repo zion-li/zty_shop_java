@@ -8,6 +8,9 @@ import com.zty.ztyshop.dao.entity.ClientInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zty.ztyshop.dao.entity.ClientLevel;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * <p>
  * 客户表 服务类
@@ -25,4 +28,8 @@ public interface IClientInfoService extends IService<ClientInfo> {
     Boolean update(ClientInfoParam param);
 
     Page<ClientInfo> page(BasePageParam param);
+
+    Map<String, Integer> statisticsNewLast30Days(Integer type);
+
+    Map<String, Integer>  statisticsOldLast30Days(Integer type);
 }

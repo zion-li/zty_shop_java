@@ -92,4 +92,26 @@ public class ClientInfoController {
     }
 
 
+    /**
+     * 详情
+     *
+     * @return
+     */
+    @GetMapping("/statisticsNewLast30Days")
+    public BaseResponseVO statisticsLast30Days(@RequestParam(required = false) Integer type) {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsNewLast30Days(type));
+    }
+
+    /**
+     * 详情
+     *
+     * @return
+     */
+    @GetMapping("/statisticsOldLast30Days")
+    public BaseResponseVO statisticsOldLast30Days(@RequestParam(required = false) Integer type) {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsOldLast30Days(type));
+    }
+
 }
