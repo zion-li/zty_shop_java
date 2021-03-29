@@ -31,7 +31,14 @@ public enum ErrorCodeEnum {
     SEARCH_MYSELF_FREIND_ERROR(40019, "不允许所有自己哦"),
     ADD_FRIEND_REQUEST_REPEAT_ERROR(40020, "添加好友请求已发送"),
     DECRIPTION_ERROR(40021, "生成密钥异常"),
-    AES_PUBLIC_NOT_EXIT_ERROR(40021, "当前用户没有建立非对称加密通道");
+    AES_PUBLIC_NOT_EXIT_ERROR(40021, "当前用户没有建立非对称加密通道"),
+    LEVEL_NAME_EXIST(40022, "当前职称已经存在"),
+    STAFF_NAME_EXIST(40023, "员工名称已存在,请给明天添加一个特殊标识"),
+    CLIENT_LEVEL_NAME_EXIST(40022, "当前等级已经存在"),
+    CLIENT_NAME_ERROR(40023,"用户名称错误"),
+    CLIENT_NAME_EXIST(40024,"当前用户已经存在"),
+    VIP_NEED_MOBILE(40025,"会员必须有手机号");
+
 
     private Integer code;
 

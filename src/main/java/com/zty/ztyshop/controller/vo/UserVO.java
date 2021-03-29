@@ -11,35 +11,12 @@ import lombok.Data;
 @Data
 public class UserVO {
 
+    private Integer userId;
+
     /**
      * 用户名（唯一）
      */
     private String userName;
-
-    /**
-     * 昵称
-     */
-    private String nickName;
-
-    /**
-     * 小头像
-     */
-    private String faceImage;
-
-    /**
-     * 性别（0:男、1:女、2:未知）
-     */
-    private Integer sex;
-
-    /**
-     * 地区
-     */
-    private String area;
-
-    /**
-     * 用户个性签名
-     */
-    private String signature;
 
     /**
      * jwt token

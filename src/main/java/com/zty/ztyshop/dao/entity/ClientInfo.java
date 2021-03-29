@@ -29,7 +29,7 @@ public class ClientInfo extends Model<ClientInfo> {
     /**
      * 性别（0女、1男）
      */
-    private Boolean gender;
+    private Integer gender;
 
     /**
      * 手机号
@@ -39,7 +39,7 @@ public class ClientInfo extends Model<ClientInfo> {
     /**
      * 是否（会员1 ，否 0）
      */
-    private Boolean isVip;
+    private Integer isVip;
 
     /**
      * 用户等级
@@ -82,11 +82,11 @@ public class ClientInfo extends Model<ClientInfo> {
         this.name = name;
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -98,11 +98,11 @@ public class ClientInfo extends Model<ClientInfo> {
         this.modile = modile;
     }
 
-    public Boolean getVip() {
+    public Integer getIsVip() {
         return isVip;
     }
 
-    public void setVip(Boolean isVip) {
+    public void setIsVip(Integer isVip) {
         this.isVip = isVip;
     }
 

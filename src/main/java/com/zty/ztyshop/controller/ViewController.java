@@ -30,10 +30,22 @@ public class ViewController {
      * @param mv
      * @return
      */
-    @RequestMapping(value = "/index")
+    @RequestMapping(value = "/index.html")
     public ModelAndView test(ModelAndView mv) {
         mv.addObject("userName", CurrentUserUtils.getUser().getUsername());
         mv.setViewName("index");
+        return mv;
+    }
+
+    @RequestMapping(value = "/welcome.html")
+    public ModelAndView welcome(ModelAndView mv) {
+        mv.setViewName("welcome");
+        return mv;
+    }
+
+    @RequestMapping(value = "/welcome1.html")
+    public ModelAndView welcome1(ModelAndView mv) {
+        mv.setViewName("welcome1");
         return mv;
     }
 

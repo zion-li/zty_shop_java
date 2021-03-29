@@ -121,7 +121,7 @@ public class OrderInfo extends Model<OrderInfo> {
     /**
      * 是否作废
      */
-    private Boolean isDelete;
+    private Integer isDelete;
 
     public Long getId() {
         return id;
@@ -331,11 +331,11 @@ public class OrderInfo extends Model<OrderInfo> {
         this.updateAt = updateAt;
     }
 
-    public Boolean getDelete() {
+    public Integer getIsDelete() {
         return isDelete;
     }
 
-    public void setDelete(Boolean isDelete) {
+    public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
     }
 

@@ -48,7 +48,7 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 
 
         //token 不为空 && token 正确 && token没有过期
-        if (StringUtils.isNotBlank(token) && CaffeineUtils.JWT_KEY.getIfPresent(token) == null
+        if (StringUtils.isNotBlank(token) && CaffeineUtils.JWT_KEY.getIfPresent(token) != null
                 && JwtUtils.verify(token) && !JwtUtils.isExpired(token)) {
 
             Claims claims = JwtUtils.getClaim(token);

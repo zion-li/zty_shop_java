@@ -1,13 +1,18 @@
 package com.zty.ztyshop.dao.entity;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+
 import java.time.LocalDate;
+
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 李佳 zion
@@ -33,7 +38,7 @@ public class StaffInfo extends Model<StaffInfo> {
     /**
      * 性别(0 女，1 男)
      */
-    private Boolean gender;
+    private Integer gender;
 
     /**
      * 联系地址
@@ -73,7 +78,7 @@ public class StaffInfo extends Model<StaffInfo> {
     /**
      * 状态（0 离职、1正常）
      */
-    private Boolean isActive;
+    private Integer isActive;
 
     private LocalDateTime createAt;
 
@@ -103,11 +108,11 @@ public class StaffInfo extends Model<StaffInfo> {
         this.birthday = birthday;
     }
 
-    public Boolean getGender() {
+    public Integer getGender() {
         return gender;
     }
 
-    public void setGender(Boolean gender) {
+    public void setGender(Integer gender) {
         this.gender = gender;
     }
 
@@ -167,11 +172,11 @@ public class StaffInfo extends Model<StaffInfo> {
         this.emergencyContactMobile = emergencyContactMobile;
     }
 
-    public Boolean getActive() {
+    public Integer getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean isActive) {
+    public void setIsActive(Integer isActive) {
         this.isActive = isActive;
     }
 
@@ -199,20 +204,20 @@ public class StaffInfo extends Model<StaffInfo> {
     @Override
     public String toString() {
         return "StaffInfo{" +
-        ", id=" + id +
-        ", name=" + name +
-        ", birthday=" + birthday +
-        ", gender=" + gender +
-        ", adress=" + adress +
-        ", mobile=" + mobile +
-        ", idArd=" + idArd +
-        ", employmentDate=" + employmentDate +
-        ", staffLevel=" + staffLevel +
-        ", emergencyContactName=" + emergencyContactName +
-        ", emergencyContactMobile=" + emergencyContactMobile +
-        ", isActive=" + isActive +
-        ", createAt=" + createAt +
-        ", updateAt=" + updateAt +
-        "}";
+                ", id=" + id +
+                ", name=" + name +
+                ", birthday=" + birthday +
+                ", gender=" + gender +
+                ", adress=" + adress +
+                ", mobile=" + mobile +
+                ", idArd=" + idArd +
+                ", employmentDate=" + employmentDate +
+                ", staffLevel=" + staffLevel +
+                ", emergencyContactName=" + emergencyContactName +
+                ", emergencyContactMobile=" + emergencyContactMobile +
+                ", isActive=" + isActive +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                "}";
     }
 }

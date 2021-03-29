@@ -24,7 +24,7 @@ public class EntityGenerator {
     // 生成类的作者
     private String author = "李佳 zion";
     // 2:【改】数据源相关配置
-    private String url = "jdbc:mysql://127.0.0.1:3306/shop_zty_321?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC";
+    private String url = "jdbc:mysql://127.0.0.1:3306/db_zty?autoReconnect=true&useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=CONVERT_TO_NULL&useSSL=false&serverTimezone=UTC";
     private String driverName = "com.mysql.cj.jdbc.Driver";
     private String userName = "root";
     private String userPwd = "root";
@@ -37,6 +37,11 @@ public class EntityGenerator {
     static {
         tableNames = new String[]{
                 //影片模块
+                "client_info"
+                ,"client_level",
+                "order_info",
+                "staff_info",
+                "staff_level",
                 "sys_user"
         };
     }

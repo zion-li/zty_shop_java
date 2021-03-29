@@ -3,7 +3,6 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
-import java.io.Serializable;
 /**
  * <p>
  * 
@@ -32,7 +31,7 @@ public class StaffLevel extends Model<StaffLevel> {
     /**
      * 是否激活
      */
-    private Boolean isActive;
+    private Integer isActive;
 
     public Integer getId() {
         return id;
@@ -58,26 +57,21 @@ public class StaffLevel extends Model<StaffLevel> {
         this.createAt = createAt;
     }
 
-    public Boolean getActive() {
+    public Integer getIsActive() {
         return isActive;
     }
 
-    public void setActive(Boolean isActive) {
+    public void setIsActive(Integer isActive) {
         this.isActive = isActive;
-    }
-
-    @Override
-    protected Serializable pkVal() {
-        return null;
     }
 
     @Override
     public String toString() {
         return "StaffLevel{" +
-        ", id=" + id +
-        ", name=" + name +
-        ", createAt=" + createAt +
-        ", isActive=" + isActive +
-        "}";
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", createAt=" + createAt +
+                ", isActive=" + isActive +
+                '}';
     }
 }

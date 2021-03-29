@@ -1,5 +1,7 @@
 package com.zty.ztyshop.dao.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.zty.ztyshop.controller.param.ClientInfoParam;
 import com.zty.ztyshop.dao.entity.ClientInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
