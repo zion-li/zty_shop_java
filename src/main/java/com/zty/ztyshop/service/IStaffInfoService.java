@@ -4,6 +4,7 @@ package com.zty.ztyshop.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.StaffInfoParam;
+import com.zty.ztyshop.controller.vo.StaffInfoVO;
 import com.zty.ztyshop.dao.entity.StaffInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.zty.ztyshop.dao.entity.StaffLevel;
@@ -31,5 +32,5 @@ public interface IStaffInfoService extends IService<StaffInfo> {
      * @param param
      * @return
      */
-    Page<StaffInfo> page(BasePageParam param);
+    Page<StaffInfoVO> page(BasePageParam param);
 }

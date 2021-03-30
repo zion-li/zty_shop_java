@@ -1,24 +1,31 @@
 package com.zty.ztyshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.google.common.collect.Lists;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.StaffInfoParam;
+import com.zty.ztyshop.controller.vo.StaffInfoVO;
 import com.zty.ztyshop.dao.entity.StaffInfo;
 import com.zty.ztyshop.dao.entity.StaffLevel;
 import com.zty.ztyshop.dao.mapper.StaffInfoMapper;
+import com.zty.ztyshop.dao.mapper.StaffLevelMapper;
 import com.zty.ztyshop.service.IStaffInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 
 
 /**
@@ -34,6 +41,9 @@ public class StaffInfoServiceImpl extends ServiceImpl<StaffInfoMapper, StaffInfo
 
     @Autowired
     private StaffInfoMapper staffInfoMapper;
+
+    @Autowired
+    private StaffLevelMapper staffLevelMapper;
 
 
     @Override
@@ -146,10 +156,37 @@ public class StaffInfoServiceImpl extends ServiceImpl<StaffInfoMapper, StaffInfo
     }
 
     @Override
-    public Page<StaffInfo> page(BasePageParam param) {
+    public Page<StaffInfoVO> page(BasePageParam param) {
+
         Page<StaffInfo> page = new Page<>(param.getPageNo(), param.getPageSize());
         Page<StaffInfo> userPage = staffInfoMapper.selectPage(page, null);
-        return userPage;
+
+        //
+        List<StaffLevel> staffLevels = staffLevelMapper.selectList(new QueryWrapper<>());
+
+
+        List<StaffInfoVO> res = Lists.newArrayList();
+        for (StaffInfo e : userPage.getRecords()) {
+            StaffInfoVO per = new StaffInfoVO();
+            BeanUtils.copyProperties(e, per);
+            if (!CollectionUtils.isEmpty(staffLevels)) {
+                for (StaffLevel s : staffLevels) {
+                    if (e.getStaffLevel().intValue() == s.getId().intValue()) {
+                        per.setStaffName(s.getName());
+                        break;
+                    }
+                }
+            }
+            res.add(per);
+        }
+        Page<StaffInfoVO> resPage = new Page<>();
+        resPage.setRecords(res);
+        resPage.setSize(userPage.getSize());
+        resPage.setTotal(userPage.getTotal());
+        resPage.setPages(userPage.getPages());
+        resPage.setCurrent(userPage.getCurrent());
+
+        return resPage;
     }
 
     private LocalDate getLocalDate(String dataStr) {
