@@ -1,13 +1,17 @@
 package com.zty.ztyshop.dao.entity;
+
 import java.math.BigDecimal;
+
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.baomidou.mybatisplus.annotation.TableId;
+
 import java.time.LocalDateTime;
 import java.io.Serializable;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author 李佳 zion
@@ -121,7 +125,7 @@ public class OrderInfo extends Model<OrderInfo> {
     /**
      * 是否作废
      */
-    private Boolean isDelete;
+    private Integer isDelete;
 
     public Long getId() {
         return id;
@@ -331,11 +335,11 @@ public class OrderInfo extends Model<OrderInfo> {
         this.updateAt = updateAt;
     }
 
-    public Boolean getDelete() {
+    public Integer getIsDelete() {
         return isDelete;
     }
 
-    public void setDelete(Boolean isDelete) {
+    public void setIsDelete(Integer isDelete) {
         this.isDelete = isDelete;
     }
 
@@ -347,33 +351,33 @@ public class OrderInfo extends Model<OrderInfo> {
     @Override
     public String toString() {
         return "OrderInfo{" +
-        ", id=" + id +
-        ", clientId=" + clientId +
-        ", staffId=" + staffId +
-        ", cashType=" + cashType +
-        ", cashAccount=" + cashAccount +
-        ", cashJf=" + cashJf +
-        ", cashJfAssistant=" + cashJfAssistant +
-        ", cashTf=" + cashTf +
-        ", cashTfAssistant=" + cashTfAssistant +
-        ", cashRf=" + cashRf +
-        ", cashRfAssistant=" + cashRfAssistant +
-        ", cashTp=" + cashTp +
-        ", cashTpAssistant=" + cashTpAssistant +
-        ", cashZx=" + cashZx +
-        ", cashZxAssistant=" + cashZxAssistant +
-        ", cashYy=" + cashYy +
-        ", cashYyAssistant=" + cashYyAssistant +
-        ", cashSx=" + cashSx +
-        ", cashSxAssistant=" + cashSxAssistant +
-        ", cashSj=" + cashSj +
-        ", cashSjAssistant=" + cashSjAssistant +
-        ", cashSp=" + cashSp +
-        ", cashSpDesc=" + cashSpDesc +
-        ", cashSpAssistant=" + cashSpAssistant +
-        ", createAt=" + createAt +
-        ", updateAt=" + updateAt +
-        ", isDelete=" + isDelete +
-        "}";
+                ", id=" + id +
+                ", clientId=" + clientId +
+                ", staffId=" + staffId +
+                ", cashType=" + cashType +
+                ", cashAccount=" + cashAccount +
+                ", cashJf=" + cashJf +
+                ", cashJfAssistant=" + cashJfAssistant +
+                ", cashTf=" + cashTf +
+                ", cashTfAssistant=" + cashTfAssistant +
+                ", cashRf=" + cashRf +
+                ", cashRfAssistant=" + cashRfAssistant +
+                ", cashTp=" + cashTp +
+                ", cashTpAssistant=" + cashTpAssistant +
+                ", cashZx=" + cashZx +
+                ", cashZxAssistant=" + cashZxAssistant +
+                ", cashYy=" + cashYy +
+                ", cashYyAssistant=" + cashYyAssistant +
+                ", cashSx=" + cashSx +
+                ", cashSxAssistant=" + cashSxAssistant +
+                ", cashSj=" + cashSj +
+                ", cashSjAssistant=" + cashSjAssistant +
+                ", cashSp=" + cashSp +
+                ", cashSpDesc=" + cashSpDesc +
+                ", cashSpAssistant=" + cashSpAssistant +
+                ", createAt=" + createAt +
+                ", updateAt=" + updateAt +
+                ", isDelete=" + isDelete +
+                "}";
     }
 }
