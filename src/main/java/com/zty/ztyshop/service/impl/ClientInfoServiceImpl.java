@@ -122,7 +122,7 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
             clientInfo.setRankName(param.getRankName());
         }
 
-        if (param.getGender() == null || (param.getGender() != 1 && param.getGender() != 0)) {
+        if (param.getGender() != null || (param.getGender() == 0 && param.getGender() == 1)) {
             clientInfo.setGender(param.getGender());
         }
 
@@ -135,7 +135,7 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
             clientInfo.setAccount(new BigDecimal(sum));
         }
 
-        if (param.getServiceTime() == null) {
+        if (param.getServiceTime() != null) {
             clientInfo.setServiceTime(param.getServiceTime());
         }
         clientInfo.setLastLogin(LocalDateTime.now());

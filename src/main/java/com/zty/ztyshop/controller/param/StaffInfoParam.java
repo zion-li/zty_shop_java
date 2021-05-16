@@ -49,10 +49,6 @@ public class StaffInfoParam {
      */
     private String employmentDate;
 
-    /**
-     * 职称名称
-     */
-    private Integer staffLevel;
 
     /**
      * 紧急联系人姓名

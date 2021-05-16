@@ -33,7 +33,7 @@ public class StaffInfoController {
      * @return
      */
     @GetMapping("/rank")
-    public BaseResponseVO add() {
+    public BaseResponseVO rank() {
         return BaseResponseVO.success(staffRankService.getAll());
     }
 
