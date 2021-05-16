@@ -3,7 +3,6 @@ package com.zty.ztyshop.utils;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
 import com.zty.ztyshop.controller.bo.SysUserBO;
-import com.zty.ztyshop.dao.entity.SysUser;
 
 /**
  * @author 李佳 lijia@autoai.com

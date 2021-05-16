@@ -32,7 +32,7 @@ public class ViewController {
      */
     @RequestMapping(value = "/index.html")
     public ModelAndView test(ModelAndView mv) {
-        mv.addObject("userName", CurrentUserUtils.getUser().getUsername());
+        mv.addObject("userName", CurrentUserUtils.getUser().getUserName());
         mv.setViewName("index");
         return mv;
     }

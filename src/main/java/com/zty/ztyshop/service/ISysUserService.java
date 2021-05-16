@@ -27,5 +27,5 @@ public interface ISysUserService extends IService<SysUser> {
      * 登出
      * @return
      */
-    Boolean Login();
+    Boolean LogOut();
 }

@@ -6,17 +6,15 @@
     <resultMap id="BaseResultMap" type="com.zty.ztyshop.dao.entity.StaffInfo">
         <id column="id" property="id" />
         <result column="name" property="name" />
+        <result column="rank_name" property="rankName" />
         <result column="birthday" property="birthday" />
         <result column="gender" property="gender" />
         <result column="adress" property="adress" />
         <result column="mobile" property="mobile" />
         <result column="id_ard" property="idArd" />
         <result column="employment_date" property="employmentDate" />
-        <result column="staff_level" property="staffLevel" />
         <result column="emergency_contact_name" property="emergencyContactName" />
         <result column="emergency_contact_mobile" property="emergencyContactMobile" />
-        <result column="is_active" property="isActive" />
-        <result column="create_at" property="createAt" />
-        <result column="update_at" property="updateAt" />
+        <result column="is_resign" property="isResign" />
     </resultMap>
 </mapper>

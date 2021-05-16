@@ -68,4 +68,8 @@ public class StaffInfoParam {
      * 状态（0 离职、1正常）
      */
     private Integer isActive;
+    /**
+     *
+     */
+    private String rankName;
 }

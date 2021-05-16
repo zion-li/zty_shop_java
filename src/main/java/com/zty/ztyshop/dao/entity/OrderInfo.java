@@ -11,7 +11,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-03-27
+ * @since 2021-05-16
  */
 public class OrderInfo extends Model<OrderInfo> {
 
@@ -121,7 +121,7 @@ public class OrderInfo extends Model<OrderInfo> {
     /**
      * 是否作废
      */
-    private Integer isDelete;
+    private Boolean isDelete;
 
     public Long getId() {
         return id;
@@ -331,11 +331,11 @@ public class OrderInfo extends Model<OrderInfo> {
         this.updateAt = updateAt;
     }
 
-    public Integer getIsDelete() {
+    public Boolean getDelete() {
         return isDelete;
     }
 
-    public void setIsDelete(Integer isDelete) {
+    public void setDelete(Boolean isDelete) {
         this.isDelete = isDelete;
     }
 

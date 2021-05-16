@@ -1,27 +1,24 @@
 package com.zty.ztyshop.dao.entity;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
-
 import java.time.LocalDate;
-
 import com.baomidou.mybatisplus.annotation.TableId;
-
-import java.time.LocalDateTime;
 import java.io.Serializable;
-
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-03-27
+ * @since 2021-05-16
  */
 public class StaffInfo extends Model<StaffInfo> {
 
     private static final long serialVersionUID = 1L;
 
+    /**
+     * 主键
+     */
     @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
@@ -29,6 +26,11 @@ public class StaffInfo extends Model<StaffInfo> {
      * 员工名称
      */
     private String name;
+
+    /**
+     * 职员等级
+     */
+    private String rankName;
 
     /**
      * 员工生日
@@ -61,11 +63,6 @@ public class StaffInfo extends Model<StaffInfo> {
     private LocalDate employmentDate;
 
     /**
-     * 职称名称
-     */
-    private Integer staffLevel;
-
-    /**
      * 紧急联系人姓名
      */
     private String emergencyContactName;
@@ -76,13 +73,9 @@ public class StaffInfo extends Model<StaffInfo> {
     private String emergencyContactMobile;
 
     /**
-     * 状态（0 离职、1正常）
+     * 状态（0 在职、1离职）
      */
-    private Integer isActive;
-
-    private LocalDateTime createAt;
-
-    private LocalDateTime updateAt;
+    private Integer isResign;
 
     public Integer getId() {
         return id;
@@ -98,6 +91,14 @@ public class StaffInfo extends Model<StaffInfo> {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRankName() {
+        return rankName;
+    }
+
+    public void setRankName(String rankName) {
+        this.rankName = rankName;
     }
 
     public LocalDate getBirthday() {
@@ -148,14 +149,6 @@ public class StaffInfo extends Model<StaffInfo> {
         this.employmentDate = employmentDate;
     }
 
-    public Integer getStaffLevel() {
-        return staffLevel;
-    }
-
-    public void setStaffLevel(Integer staffLevel) {
-        this.staffLevel = staffLevel;
-    }
-
     public String getEmergencyContactName() {
         return emergencyContactName;
     }
@@ -172,28 +165,12 @@ public class StaffInfo extends Model<StaffInfo> {
         this.emergencyContactMobile = emergencyContactMobile;
     }
 
-    public Integer getIsActive() {
-        return isActive;
+    public Integer getResign() {
+        return isResign;
     }
 
-    public void setIsActive(Integer isActive) {
-        this.isActive = isActive;
-    }
-
-    public LocalDateTime getCreateAt() {
-        return createAt;
-    }
-
-    public void setCreateAt(LocalDateTime createAt) {
-        this.createAt = createAt;
-    }
-
-    public LocalDateTime getUpdateAt() {
-        return updateAt;
-    }
-
-    public void setUpdateAt(LocalDateTime updateAt) {
-        this.updateAt = updateAt;
+    public void setResign(Integer isResign) {
+        this.isResign = isResign;
     }
 
     @Override
@@ -204,20 +181,18 @@ public class StaffInfo extends Model<StaffInfo> {
     @Override
     public String toString() {
         return "StaffInfo{" +
-                ", id=" + id +
-                ", name=" + name +
-                ", birthday=" + birthday +
-                ", gender=" + gender +
-                ", adress=" + adress +
-                ", mobile=" + mobile +
-                ", idArd=" + idArd +
-                ", employmentDate=" + employmentDate +
-                ", staffLevel=" + staffLevel +
-                ", emergencyContactName=" + emergencyContactName +
-                ", emergencyContactMobile=" + emergencyContactMobile +
-                ", isActive=" + isActive +
-                ", createAt=" + createAt +
-                ", updateAt=" + updateAt +
-                "}";
+        ", id=" + id +
+        ", name=" + name +
+        ", rankName=" + rankName +
+        ", birthday=" + birthday +
+        ", gender=" + gender +
+        ", adress=" + adress +
+        ", mobile=" + mobile +
+        ", idArd=" + idArd +
+        ", employmentDate=" + employmentDate +
+        ", emergencyContactName=" + emergencyContactName +
+        ", emergencyContactMobile=" + emergencyContactMobile +
+        ", isResign=" + isResign +
+        "}";
     }
 }

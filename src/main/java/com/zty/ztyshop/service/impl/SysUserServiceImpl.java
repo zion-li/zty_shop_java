@@ -2,7 +2,6 @@ package com.zty.ztyshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Maps;
-import com.zty.ztyshop.common.BaseResponseVO;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
 import com.zty.ztyshop.config.PasswordEncoder;
@@ -15,7 +14,6 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zty.ztyshop.utils.CaffeineUtils;
 import com.zty.ztyshop.utils.CurrentUserUtils;
 import com.zty.ztyshop.utils.JwtUtils;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -64,7 +62,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
     }
 
     @Override
-    public Boolean Login() {
+    public Boolean LogOut() {
         SysUserBO user = CurrentUserUtils.getUser();
         if (user != null) {
             CaffeineUtils.JWT_KEY.invalidate(user.getToken());

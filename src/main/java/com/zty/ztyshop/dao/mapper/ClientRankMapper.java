@@ -1,6 +1,6 @@
 package com.zty.ztyshop.dao.mapper;
 
-import com.zty.ztyshop.dao.entity.StaffLevel;
+import com.zty.ztyshop.dao.entity.ClientRank;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-03-27
+ * @since 2021-05-16
  */
-public interface StaffLevelMapper extends BaseMapper<StaffLevel> {
+public interface ClientRankMapper extends BaseMapper<ClientRank> {
 
 }

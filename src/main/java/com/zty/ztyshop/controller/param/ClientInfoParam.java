@@ -22,6 +22,11 @@ public class ClientInfoParam {
     private String name;
 
     /**
+     * 等级
+     */
+    private String rankName;
+
+    /**
      * 性别（0女、1男）
      */
     private Integer gender;
@@ -32,19 +37,11 @@ public class ClientInfoParam {
     private String modile;
 
     /**
-     * 是否（会员1 ，否 0）
-     */
-    private Integer isVip;
-
-    /**
-     * 用户等级
-     */
-    private Integer clientLevel;
-
-    /**
      * 顾客生日
      */
     private String birthday;
 
     private String account;
+
+    private Integer serviceTime;
 }

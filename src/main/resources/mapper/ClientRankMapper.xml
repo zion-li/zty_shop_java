@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.zty.ztyshop.dao.mapper.StaffLevelMapper">
+<mapper namespace="com.zty.ztyshop.dao.mapper.ClientRankMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.zty.ztyshop.dao.entity.StaffLevel">
+    <resultMap id="BaseResultMap" type="com.zty.ztyshop.dao.entity.ClientRank">
         <id column="id" property="id" />
+        <result column="en_name" property="enName" />
         <result column="name" property="name" />
-        <result column="create_at" property="createAt" />
-        <result column="is_active" property="isActive" />
     </resultMap>
 </mapper>

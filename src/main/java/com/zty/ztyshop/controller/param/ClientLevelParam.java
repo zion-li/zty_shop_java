@@ -27,4 +27,9 @@ public class ClientLevelParam {
      */
     private String name;
 
+    /**
+     * 英文标识
+     */
+    private String englishName;
+
 }

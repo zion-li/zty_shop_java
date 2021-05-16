@@ -38,10 +38,10 @@ public class EntityGenerator {
         tableNames = new String[]{
                 //影片模块
                 "client_info"
-                ,"client_level",
+                ,"client_rank",
                 "order_info",
                 "staff_info",
-                "staff_level",
+                "staff_rank",
                 "sys_user"
         };
     }

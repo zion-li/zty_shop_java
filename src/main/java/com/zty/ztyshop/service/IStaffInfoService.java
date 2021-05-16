@@ -7,7 +7,9 @@ import com.zty.ztyshop.controller.param.StaffInfoParam;
 import com.zty.ztyshop.controller.vo.StaffInfoVO;
 import com.zty.ztyshop.dao.entity.StaffInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.zty.ztyshop.dao.entity.StaffLevel;
+
+import java.util.List;
+
 
 /**
  * <p>
@@ -19,12 +21,25 @@ import com.zty.ztyshop.dao.entity.StaffLevel;
  */
 public interface IStaffInfoService extends IService<StaffInfo> {
 
-
+    /**
+     * @param param
+     * @return
+     */
     Boolean add(StaffInfoParam param);
 
+    /**
+     * @param param
+     * @return
+     */
     Boolean delete(StaffInfoParam param);
 
-    Boolean updateStaffInfo(StaffInfoParam param);
+    /**
+     * 更改
+     *
+     * @param param
+     * @return
+     */
+    Boolean update(StaffInfoParam param);
 
     /**
      * 分页查询
@@ -32,5 +47,10 @@ public interface IStaffInfoService extends IService<StaffInfo> {
      * @param param
      * @return
      */
-    Page<StaffInfoVO> page(BasePageParam param);
+    Page<StaffInfo> page(BasePageParam param);
+
+    /**
+     * @return
+     */
+    List<StaffInfo> getAll();
 }

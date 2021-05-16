@@ -27,9 +27,8 @@ public class SysUserController {
     }
 
     @PostMapping("/logOut")
-    public BaseResponseVO Login() {
-        return BaseResponseVO.success(userService.Login());
+    public BaseResponseVO LogOut() {
+        return BaseResponseVO.success(userService.LogOut());
     }
-
 
 }
