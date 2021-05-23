@@ -32,4 +32,19 @@
         <result column="update_at" property="updateAt" />
         <result column="is_delete" property="isDelete" />
     </resultMap>
+    <select id="accountAll" resultType="java.lang.Long">
+        SELECT COUNT(cash_account) FROM order_info WHERE is_delete=0;
+    </select>
+
+    <select id="statisticsReturn" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
+        SELECT
+	        DATE_FORMAT( create_at, "%Y-%m-%d" ) AS `day`,
+	        SUM( cash_account ) AS account
+        FROM
+	        order_info
+        WHERE
+	        create_at >= #{minDate}
+	        and  is_delete = 0
+        GROUP BY `day` ORDER BY `day`
+    </select>
 </mapper>

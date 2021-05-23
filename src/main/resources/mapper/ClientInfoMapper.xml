@@ -13,19 +13,33 @@
         <result column="account" property="account" />
         <result column="last_login" property="lastLogin" />
         <result column="service_time" property="serviceTime" />
+        <result column="create_at" property="createAt"/>
     </resultMap>
 
-<!--    <select id="statisticsNewLast30Days" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">-->
-<!--        SELECT-->
-<!--	        DATE_FORMAT( create_at, "%Y-%m-%d" ) AS `day`,-->
-<!--	        COUNT( * ) AS account-->
-<!--        FROM-->
-<!--	        client_info-->
-<!--        WHERE-->
-<!--	        create_at >= #{minDate}-->
-<!--        GROUP BY-->
-<!--	        DATE_FORMAT( create_at, "%Y-%m-%d" )-->
-<!--    </select>-->
+    <select id="statisticsNewLast" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
+        SELECT
+	        DATE_FORMAT( create_at, "%Y-%m-%d" ) AS `day`,
+	        COUNT( * ) AS account
+        FROM
+	        client_info
+        WHERE
+	        create_at >= #{minDate}
+        GROUP BY `day` ORDER BY `day`
+    </select>
+
+    <select id="statisticsReturn" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
+        SELECT
+	        DATE_FORMAT( create_at, "%Y-%m-%d" ) AS `day`,
+	        COUNT( * ) AS account
+        FROM
+	        client_info
+        WHERE
+	        create_at >= #{minDate}
+	        and last_login <![CDATA[ <> ]]> create_at
+        GROUP BY `day` ORDER BY `day`
+    </select>
+
+
 
 <!--    <select id="statisticsOldLast30Days" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">-->
 <!--        SELECT-->
@@ -48,19 +62,5 @@
 <!--        GROUP BY-->
 <!--            DATE_FORMAT( create_at, "%Y-%m-%d" )-->
 <!--    </select>-->
-
-
-<!--    <select id="statisticsAll" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">-->
-<!--        SELECT-->
-<!--	        DATE_FORMAT( create_at, "%Y-%m" ) AS `day`,-->
-<!--	        COUNT( * ) AS account-->
-<!--        FROM-->
-<!--	        client_info-->
-<!--        WHERE-->
-<!--	        create_at >= #{minDate}-->
-<!--        GROUP BY-->
-<!--	        DATE_FORMAT( create_at, "%Y-%m" )-->
-<!--    </select>-->
-
 
 </mapper>

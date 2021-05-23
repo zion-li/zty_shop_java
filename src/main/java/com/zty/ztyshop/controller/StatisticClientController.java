@@ -2,7 +2,6 @@ package com.zty.ztyshop.controller;
 
 import com.zty.ztyshop.common.BaseResponseVO;
 import com.zty.ztyshop.service.IClientInfoService;
-import com.zty.ztyshop.service.IClientRankService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,21 +14,18 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/clientStatistic")
-public class ClientStatisticController {
+public class StatisticClientController {
 
     @Autowired
     private IClientInfoService clientInfoService;
 
-    @Autowired
-    private IClientRankService clientRankService;
-
     /**
-     * 详情（7天总用户）
+     * 总用户数
      *
      * @return
      */
     @GetMapping("/statisticsAll")
-    public BaseResponseVO statisticsAll7Days() {
+    public BaseResponseVO statisticsAll() {
         return BaseResponseVO.success(clientInfoService.count());
     }
 
