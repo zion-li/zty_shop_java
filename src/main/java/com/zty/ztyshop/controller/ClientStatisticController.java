@@ -26,7 +26,7 @@ public class ClientStatisticController {
 
 
     /**
-     * 详情（30天新增用户）
+     * 详情（7天新增用户）
      *
      * @return
      */
@@ -48,7 +48,7 @@ public class ClientStatisticController {
     }
 
     /**
-     * 详情（30天新增用户）
+     * 详情（90天新增用户）
      *
      * @return
      */
@@ -69,26 +69,48 @@ public class ClientStatisticController {
         return BaseResponseVO.success(clientInfoService.statisticsLast365Days());
     }
 
-//    /**
-//     * 详情（30天老用户回访）
-//     *
-//     * @return
-//     */
-//    @GetMapping("/statisticsOldLast30Days")
-//    public BaseResponseVO statisticsOldLast30Days(@RequestParam(required = false) Integer type) {
-//        //1：月
-//        return BaseResponseVO.success(clientInfoService.statisticsOldLast30Days(type));
-//    }
-//
-//    /**
-//     * 详情（最近12个月新增用户）
-//     *
-//     * @return
-//     */
-//    @GetMapping("/statisticsAll")
-//    public BaseResponseVO statisticsAll(@RequestParam(required = false) Integer type) {
-//        //1：月
-//        return BaseResponseVO.success(clientInfoService.statisticsAll(type));
-//    }
+    /**
+     * 详情（7天回访用户）
+     *
+     * @return
+     */
+    @GetMapping("/statisticsReturn7Days")
+    public BaseResponseVO statisticsReturn7Days() {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsReturn7Days());
+    }
+
+    /**
+     * 详情（30天回访用户）
+     *
+     * @return
+     */
+    @GetMapping("/statisticsReturn30Days")
+    public BaseResponseVO statisticsReturn30Days() {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsReturn30Days());
+    }
+
+    /**
+     * 详情（90天回访用户）
+     *
+     * @return
+     */
+    @GetMapping("/statisticsReturn90Days")
+    public BaseResponseVO statisticsReturn90Days() {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsReturn90Days());
+    }
+
+    /**
+     * 详情（365天回访用户）
+     *
+     * @return
+     */
+    @GetMapping("/statisticsReturn365Days")
+    public BaseResponseVO statisticsReturn365Days() {
+        //1：月
+        return BaseResponseVO.success(clientInfoService.statisticsReturn365Days());
+    }
 
 }

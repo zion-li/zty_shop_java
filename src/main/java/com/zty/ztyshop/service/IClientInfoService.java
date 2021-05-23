@@ -75,10 +75,11 @@ public interface IClientInfoService extends IService<ClientInfo> {
      */
     Map<String, Integer> statisticsLast365Days();
 
+    Map<String, Integer> statisticsReturn7Days();
 
-//    Map<String, Integer> statisticsNewLast30Days(Integer type);
-//
-//    Map<String, Integer> statisticsOldLast30Days(Integer type);
-//
-//    Map<String, Integer> statisticsAll(Integer type);
+    Map<String, Integer> statisticsReturn30Days();
+
+    Map<String, Integer> statisticsReturn90Days();
+
+    Map<String, Integer> statisticsReturn365Days();
 }

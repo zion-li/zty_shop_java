@@ -68,8 +68,9 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         String sum = StringUtils.isBlank(param.getAccount()) ? "0" : param.getAccount();
         clientInfo.setAccount(new BigDecimal(sum));
         clientInfo.setServiceTime(0);
-        clientInfo.setLastLogin(LocalDateTime.now());
-        clientInfo.setCreateAt(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        clientInfo.setLastLogin(now);
+        clientInfo.setCreateAt(now);
         //会员，需要用户姓名+手机号，别的无所谓
         return clientInfoMapper.insert(clientInfo) == 1;
     }
@@ -142,7 +143,6 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         if (param.getServiceTime() != null) {
             clientInfo.setServiceTime(param.getServiceTime());
         }
-        clientInfo.setLastLogin(LocalDateTime.now());
         //会员，需要用户姓名+手机号，别的无所谓
         return clientInfoMapper.updateById(clientInfo) == 1;
     }
@@ -220,6 +220,81 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         LocalDate minDate = LocalDate.now().minusDays(366);
 
         List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+
+            for (Map.Entry<String, Integer> entry : res.entrySet()) {
+                String mapKey = entry.getKey();
+                if (e.getDay().startsWith(mapKey)) {
+                    entry.setValue(entry.getValue() + e.getAccount());
+                    break;
+                }
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsReturn7Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast7Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(7);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsReturn(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsReturn30Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast30Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(30);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsReturn(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsReturn90Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast90Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(90);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsReturn(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsReturn365Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLastYear();
+
+        LocalDate minDate = LocalDate.now().minusDays(366);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsReturn(minDate);
 
         for (StatisticsLast30DaysBO e : last30DaysBOS) {
 
