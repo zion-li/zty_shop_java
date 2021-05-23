@@ -1,10 +1,10 @@
 package com.zty.ztyshop.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.google.common.collect.Lists;
-import com.sun.security.ntlm.Client;
+import com.zty.ztyshop.common.CommonServiceException;
+import com.zty.ztyshop.common.ErrorCodeEnum;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.OrderInfoParam;
 import com.zty.ztyshop.controller.vo.OrderInfoVO;
@@ -18,13 +18,12 @@ import com.zty.ztyshop.service.IOrderInfoService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -48,7 +47,15 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
     private ClientInfoMapper clientInfoMapper;
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean add(OrderInfoParam param) {
+        //参数校验
+        ClientInfo clientInfo = clientInfoMapper.selectById(param.getClientId());
+        if (clientInfo == null) {
+            //当前用户不存在
+            throw new CommonServiceException(ErrorCodeEnum.USER_ID_NOT_EXIST_ERROR);
+        }
+
         OrderInfo orderInfo = new OrderInfo();
         //客户id
         orderInfo.setClientId(param.getClientId());
@@ -82,7 +89,6 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setCashYyAssistant(param.getCashYyAssistant());
         orderInfo.setCashYy(new BigDecimal(param.getCashYy()));
 
-
         //水洗
         orderInfo.setCashSxAssistant(param.getCashSxAssistant());
         orderInfo.setCashSx(new BigDecimal(param.getCashSx()));
@@ -96,11 +102,22 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         orderInfo.setCashSp(new BigDecimal(param.getCashSp()));
         orderInfo.setCashSpDesc(param.getCashSpDesc());
 
+        //时间
         orderInfo.setCreateAt(LocalDateTime.now());
         orderInfo.setUpdateAt(LocalDateTime.now());
         orderInfo.setIsDelete(0);
 
-        return orderInfoMapper.insert(orderInfo) == 1;
+        if (orderInfoMapper.insert(orderInfo) == 1) {
+            //更新服务次数
+            clientInfo.setServiceTime(clientInfo.getServiceTime() + 1);
+            //更新消费金额
+            BigDecimal amount = clientInfo.getAccount().add(new BigDecimal(param.getCashAccount()));
+            clientInfo.setAccount(amount);
+            //最新到店时间
+            clientInfo.setLastLogin(LocalDateTime.now());
+            return clientInfoMapper.updateById(clientInfo) == 1;
+        }
+        return false;
     }
 
     @Override
@@ -290,6 +307,4 @@ public class OrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderInfo
         result.setRecords(records);
         return result;
     }
-
-
 }

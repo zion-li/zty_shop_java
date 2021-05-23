@@ -13,11 +13,31 @@ import java.util.Map;
  */
 public class DateUtils {
 
+    public static Map<String, Integer> getLast7Days() {
+        Map<String, Integer> res = Maps.newLinkedHashMap();
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (int i = 6; i >= 0; i--) {
+            res.put(localDate.minusDays(i).format(formatter), 0);
+        }
+        return res;
+    }
+
     public static Map<String, Integer> getLast30Days() {
         Map<String, Integer> res = Maps.newLinkedHashMap();
         LocalDate localDate = LocalDate.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         for (int i = 29; i >= 0; i--) {
+            res.put(localDate.minusDays(i).format(formatter), 0);
+        }
+        return res;
+    }
+
+    public static Map<String, Integer> getLast90Days() {
+        Map<String, Integer> res = Maps.newLinkedHashMap();
+        LocalDate localDate = LocalDate.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        for (int i = 89; i >= 0; i--) {
             res.put(localDate.minusDays(i).format(formatter), 0);
         }
         return res;

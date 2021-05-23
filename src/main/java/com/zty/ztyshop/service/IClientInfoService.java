@@ -7,6 +7,7 @@ import com.zty.ztyshop.dao.entity.ClientInfo;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -43,10 +44,37 @@ public interface IClientInfoService extends IService<ClientInfo> {
     Page<ClientInfo> page(BasePageParam param);
 
     /**
-     *
      * @return
      */
     List<ClientInfo> getAll();
+
+    /**
+     * 统计7天新增用户
+     *
+     * @return
+     */
+    Object statisticsLast7Days();
+
+    /**
+     * 统计30天新增用户
+     *
+     * @return
+     */
+    Map<String, Integer> statisticsLast30Days();
+
+    /**
+     * 统计90天新增用户
+     *
+     * @return
+     */
+    Map<String, Integer> statisticsLast90Days();
+    /**
+     * 统计365天新增用户
+     *
+     * @return
+     */
+    Map<String, Integer> statisticsLast365Days();
+
 
 //    Map<String, Integer> statisticsNewLast30Days(Integer type);
 //

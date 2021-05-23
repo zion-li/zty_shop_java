@@ -68,4 +68,8 @@ public class ClientInfo extends Model<ClientInfo> {
      * 服务次数
      */
     private Integer serviceTime;
+    /**
+     * 创建时间
+     */
+    private LocalDateTime createAt;
 }

@@ -5,11 +5,13 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zty.ztyshop.common.CommonServiceException;
 import com.zty.ztyshop.common.ErrorCodeEnum;
+import com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.ClientInfoParam;
 import com.zty.ztyshop.dao.entity.ClientInfo;
 import com.zty.ztyshop.dao.mapper.ClientInfoMapper;
 import com.zty.ztyshop.service.IClientInfoService;
+import com.zty.ztyshop.utils.DateUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -66,6 +69,7 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         clientInfo.setAccount(new BigDecimal(sum));
         clientInfo.setServiceTime(0);
         clientInfo.setLastLogin(LocalDateTime.now());
+        clientInfo.setCreateAt(LocalDateTime.now());
         //会员，需要用户姓名+手机号，别的无所谓
         return clientInfoMapper.insert(clientInfo) == 1;
     }
@@ -155,23 +159,80 @@ public class ClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, ClientI
         return clientInfoMapper.selectList(null);
     }
 
-//    @Override
-//    public Map<String, Integer> statisticsNewLast30Days(Integer type) {
-//        //默认，统计最近一个月，新用户增长
-//        Map<String, Integer> res = DateUtils.getLast30Days();
-//
-//        LocalDate minDate = LocalDate.now().minusDays(29);
-//
-//        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast30Days(minDate);
-//
-//        for (StatisticsLast30DaysBO e : last30DaysBOS) {
-//            if (res.containsKey(e.getDay())) {
-//                res.put(e.getDay(), e.getAccount());
-//            }
-//        }
-//
-//        return res;
-//    }
+    @Override
+    public Map<String, Integer> statisticsLast7Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast7Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(7);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsLast30Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast30Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(30);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsLast90Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLast90Days();
+
+        LocalDate minDate = LocalDate.now().minusDays(90);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+            if (res.containsKey(e.getDay())) {
+                res.put(e.getDay(), e.getAccount());
+            }
+        }
+        return res;
+    }
+
+    @Override
+    public Map<String, Integer> statisticsLast365Days() {
+        //默认，统计最近一个月，新用户增长
+        Map<String, Integer> res = DateUtils.getLastYear();
+
+        LocalDate minDate = LocalDate.now().minusDays(366);
+
+        List<StatisticsLast30DaysBO> last30DaysBOS = clientInfoMapper.statisticsNewLast(minDate);
+
+        for (StatisticsLast30DaysBO e : last30DaysBOS) {
+
+            for (Map.Entry<String, Integer> entry : res.entrySet()) {
+                String mapKey = entry.getKey();
+                if (e.getDay().startsWith(mapKey)) {
+                    entry.setValue(entry.getValue() + e.getAccount());
+                    break;
+                }
+            }
+        }
+        return res;
+    }
 //
 //    @Override
 //    public Map<String, Integer> statisticsOldLast30Days(Integer type) {
