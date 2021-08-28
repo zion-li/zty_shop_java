@@ -1,7 +1,8 @@
 package com.zty.ztyshop.controller;
 
 import com.zty.ztyshop.common.BaseResponseVO;
-import com.zty.ztyshop.service.IClientInfoService;
+import com.zty.ztyshop.service.StaticClientInfoService;
+import com.zty.ztyshop.service.SysClientInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatisticClientController {
 
     @Autowired
-    private IClientInfoService clientInfoService;
+    private StaticClientInfoService clientInfoService;
 
     /**
      * 总用户数

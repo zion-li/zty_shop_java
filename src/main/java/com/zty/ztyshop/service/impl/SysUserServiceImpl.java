@@ -2,14 +2,14 @@ package com.zty.ztyshop.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Maps;
-import com.zty.ztyshop.common.CommonServiceException;
-import com.zty.ztyshop.common.ErrorCodeEnum;
+import com.zty.ztyshop.common.BaseException;
+import com.zty.ztyshop.common.BaseEnum;
 import com.zty.ztyshop.config.PasswordEncoder;
 import com.zty.ztyshop.controller.bo.SysUserBO;
 import com.zty.ztyshop.controller.vo.UserVO;
 import com.zty.ztyshop.dao.entity.SysUser;
 import com.zty.ztyshop.dao.mapper.SysUserMapper;
-import com.zty.ztyshop.service.ISysUserService;
+import com.zty.ztyshop.service.SysUserService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zty.ztyshop.utils.CaffeineUtils;
 import com.zty.ztyshop.utils.CurrentUserUtils;
@@ -28,7 +28,7 @@ import java.util.Map;
  * @since 2021-03-21
  */
 @Service
-public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements ISysUserService {
+public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> implements SysUserService {
 
 
     @Autowired
@@ -46,7 +46,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         //密码检查
         if (user == null || !passwordEncoder.matches(password, user.getPassword())) {
-            throw new CommonServiceException(ErrorCodeEnum.PASSWORD_ERROR);
+            throw new BaseException(BaseEnum.PASSWORD_ERROR);
         }
 
         UserVO result = new UserVO();

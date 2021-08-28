@@ -65,7 +65,7 @@ public class StaffInfoParam {
      */
     private Integer isActive;
     /**
-     *
+     * 职称
      */
     private String rankName;
 }

@@ -17,7 +17,7 @@ public class BasePageVO extends BaseRequestVO {
     private Integer pageSize = 10;
 
     @Override
-    public void checkParam() throws CommonServiceException {
+    public void checkParam() throws BaseException {
         return;
     }
 }

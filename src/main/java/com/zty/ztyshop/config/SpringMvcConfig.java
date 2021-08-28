@@ -22,17 +22,12 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * 不需要登录拦截的url
      */
     private static final List<String> EXCLUDE_PATH
-            = Arrays.asList("/", "/css/**", "/fonts/**", "/images/**", "/js/**", "/lib/**",
-            "/sysUser/login");
+            = Arrays.asList("/sysUser/login");
 
 
     @Autowired
     private LoginHandlerInterceptor loginHandler;
 
-    @Override
-    public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("").setViewName("login");
-    }
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

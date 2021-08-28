@@ -2,7 +2,7 @@ package com.zty.ztyshop.handler;
 
 
 import com.zty.ztyshop.common.BaseResponseVO;
-import com.zty.ztyshop.common.CommonServiceException;
+import com.zty.ztyshop.common.BaseException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindingResult;
@@ -34,14 +34,9 @@ public class BaseExceptionHandler {
      * @param e
      * @return
      */
-    @ExceptionHandler(CommonServiceException.class)
+    @ExceptionHandler(BaseException.class)
     @ResponseBody
-    public BaseResponseVO serviceExceptionHandler(
-            HttpServletRequest request, CommonServiceException e) {
-
-        log.error("CommonServiceException, code:{}, message",
-                e.getCode(), e.getMessage());
-
+    public BaseResponseVO serviceExceptionHandler(HttpServletRequest request, BaseException e) {
         return BaseResponseVO.serviceException(e);
     }
 
@@ -51,7 +46,7 @@ public class BaseExceptionHandler {
     @ResponseBody
     public BaseResponseVO handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
         BindingResult bindingResult = ex.getBindingResult();
-        StringBuilder sb = new StringBuilder("校验失败:");
+        StringBuilder sb = new StringBuilder("参数校验失败:");
         for (FieldError fieldError : bindingResult.getFieldErrors()) {
             sb.append(fieldError.getField()).append("：").append(fieldError.getDefaultMessage()).append(", ");
         }
@@ -76,7 +71,6 @@ public class BaseExceptionHandler {
     @ExceptionHandler(Exception.class)
     @ResponseBody
     public BaseResponseVO handle(Exception e) {
-        log.error("::>>>>>{}", e.getMessage());
         return BaseResponseVO.serviceException(e);
     }
 }

@@ -10,6 +10,6 @@ public abstract class BaseRequestVO {
     /**
      * 公共的参数验证方法
      */
-    public abstract void checkParam() throws CommonServiceException;
+    public abstract void checkParam() throws BaseException;
 
 }

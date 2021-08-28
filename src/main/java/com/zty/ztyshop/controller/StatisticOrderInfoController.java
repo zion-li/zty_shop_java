@@ -1,7 +1,8 @@
 package com.zty.ztyshop.controller;
 
 import com.zty.ztyshop.common.BaseResponseVO;
-import com.zty.ztyshop.service.IOrderInfoService;
+import com.zty.ztyshop.service.StaticOrderInfoService;
+import com.zty.ztyshop.service.SysOrderInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class StatisticOrderInfoController {
 
     @Autowired
-    private IOrderInfoService orderInfoService;
+    private StaticOrderInfoService orderInfoService;
 
     /**
      * 总订单数

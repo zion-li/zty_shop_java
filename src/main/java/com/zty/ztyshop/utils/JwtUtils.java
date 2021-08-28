@@ -1,8 +1,8 @@
 package com.zty.ztyshop.utils;
 
 import com.google.common.collect.Maps;
-import com.zty.ztyshop.common.CommonServiceException;
-import com.zty.ztyshop.common.ErrorCodeEnum;
+import com.zty.ztyshop.common.BaseException;
+import com.zty.ztyshop.common.BaseEnum;
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 
@@ -78,7 +78,7 @@ public class JwtUtils {
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException e) {
-            throw new CommonServiceException(ErrorCodeEnum.JWT_ERROR);
+            throw new BaseException(BaseEnum.JWT_ERROR);
         }
     }
 
@@ -152,7 +152,7 @@ public class JwtUtils {
                     .parseClaimsJws(token)
                     .getBody();
         } catch (Exception e) {
-            throw new CommonServiceException(ErrorCodeEnum.JWT_ERROR);
+            throw new BaseException(BaseEnum.JWT_ERROR);
         }
         return claims;
     }

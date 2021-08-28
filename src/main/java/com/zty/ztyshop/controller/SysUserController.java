@@ -2,7 +2,7 @@ package com.zty.ztyshop.controller;
 
 import com.zty.ztyshop.common.BaseResponseVO;
 import com.zty.ztyshop.controller.param.LoginParam;
-import com.zty.ztyshop.service.ISysUserService;
+import com.zty.ztyshop.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.*;
 public class SysUserController {
 
     @Autowired
-    private ISysUserService userService;
+    private SysUserService userService;
 
     @PostMapping("/login")
     public BaseResponseVO Login(@RequestBody LoginParam loginParam) {

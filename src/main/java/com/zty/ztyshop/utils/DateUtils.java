@@ -1,6 +1,7 @@
 package com.zty.ztyshop.utils;
 
 import com.google.common.collect.Maps;
+import org.apache.commons.lang3.StringUtils;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -51,5 +52,12 @@ public class DateUtils {
             res.put(localDate.minusMonths(i).format(formatter), 0);
         }
         return res;
+    }
+
+    public static LocalDate getLocalDate(String dataStr) {
+        if (StringUtils.isBlank(dataStr)) {
+            return null;
+        }
+        return LocalDate.parse(dataStr, DateTimeFormatter.ofPattern("yyyy/MM/dd"));
     }
 }

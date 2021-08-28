@@ -99,7 +99,7 @@ public class BaseResponseVO<M> {
      * @param <M>
      * @return
      */
-    public static <M> BaseResponseVO serviceException(CommonServiceException e) {
+    public static <M> BaseResponseVO serviceException(BaseException e) {
         BaseResponseVO response = new BaseResponseVO();
         response.setCode(e.getCode());
         response.setMessage(e.getMessage());

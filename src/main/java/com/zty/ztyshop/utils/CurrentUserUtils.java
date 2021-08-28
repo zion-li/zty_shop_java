@@ -1,7 +1,7 @@
 package com.zty.ztyshop.utils;
 
-import com.zty.ztyshop.common.CommonServiceException;
-import com.zty.ztyshop.common.ErrorCodeEnum;
+import com.zty.ztyshop.common.BaseException;
+import com.zty.ztyshop.common.BaseEnum;
 import com.zty.ztyshop.controller.bo.SysUserBO;
 
 /**
@@ -34,7 +34,7 @@ public class CurrentUserUtils {
     public static SysUserBO getUser() {
         SysUserBO user = currentUser.get();
         if (null == user) {
-            throw new CommonServiceException(ErrorCodeEnum.USER_ID_NOT_EXIST_ERROR);
+            throw new BaseException(BaseEnum.USER_ID_NOT_EXIST_ERROR);
         }
         return user;
     }

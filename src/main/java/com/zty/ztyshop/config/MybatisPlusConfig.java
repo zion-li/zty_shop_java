@@ -25,7 +25,6 @@ public class MybatisPlusConfig {
 
     @Bean
     public DruidDataSource dataSource(DruidProperties druidProperties) {
-        log.info(">>> enable mysql");
         DruidDataSource dataSource = new DruidDataSource();
         druidProperties.config(dataSource);
         return dataSource;
