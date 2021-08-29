@@ -64,6 +64,10 @@ public class SysStaffInfoServiceImpl extends ServiceImpl<StaffInfoMapper, StaffI
 
     @Override
     public Boolean delete(StaffInfoParam param) {
+        if (param.getId() == null) {
+            throw new BaseException(BaseEnum.PARAM_ERROR);
+        }
+
         return staffInfoMapper.deleteById(param.getId()) == 1;
     }
 

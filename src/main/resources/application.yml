@@ -29,3 +29,10 @@ spring:
     username: root
     password: root
     filters: log4j2,wall
+
+## Swagger3
+swagger3:
+  enable: true
+  title: 做头呀
+  description: 美发项目
+  authHeaderKey: token

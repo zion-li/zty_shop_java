@@ -40,6 +40,7 @@
         <hibernate-validator.version>6.1.5.Final</hibernate-validator.version>
         <jjwt.version>1.0.1</jjwt.version>
         <caffeine.version>2.8.6</caffeine.version>
+        <springfox-swagger3.version>3.0.0</springfox-swagger3.version>
     </properties>
 
 
@@ -145,6 +146,12 @@
             <groupId>com.10duke.client.jwt</groupId>
             <artifactId>jjwt</artifactId>
             <version>${jjwt.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-boot-starter</artifactId>
+            <version>${springfox-swagger3.version}</version>
         </dependency>
     </dependencies>
 

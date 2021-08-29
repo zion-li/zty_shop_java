@@ -28,7 +28,18 @@ public class SpringMvcConfig implements WebMvcConfigurer {
      * 不需要登录拦截的url
      */
     private static final List<String> EXCLUDE_PATH
-            = Arrays.asList("/sysUser/login");
+            = Arrays.asList("/sysUser/login",
+            "/staffInfo/rank",
+            "/swagger-ui.html",
+            "/configuration/ui",
+            "/swagger-resources/**",
+            "/configuration/security",
+            "/v3/api-docs",
+            "/webjars/**",
+            "/swagger-ui/**",
+            "/*/favicon.ico",
+            "/favicon.ico",
+            "/error");
 
 
     @Autowired

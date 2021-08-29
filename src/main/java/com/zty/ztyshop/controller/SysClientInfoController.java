@@ -6,6 +6,8 @@ import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.ClientInfoParam;
 import com.zty.ztyshop.service.SysClientInfoService;
 import com.zty.ztyshop.service.SysClientRankService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,6 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/clientInfo")
+@Api(value = "管理员--客户管理", tags = "管理员--客户管理")
 public class SysClientInfoController {
 
     //客户信息
@@ -36,6 +39,7 @@ public class SysClientInfoController {
      * @return
      */
     @GetMapping("/rank")
+    @ApiOperation(value = "客户-等级查询", notes = "客户-等级查询")
     public BaseResponseVO add() {
         return BaseResponseVO.success(clientRankService.getAll());
     }
@@ -47,6 +51,7 @@ public class SysClientInfoController {
      * @return
      */
     @PostMapping("/add")
+    @ApiOperation(value = "客户-新增客户", notes = "客户-新增客户")
     public BaseResponseVO add(@RequestBody ClientInfoParam param) {
         return BaseResponseVO.success(clientInfoService.add(param));
     }
@@ -58,6 +63,7 @@ public class SysClientInfoController {
      * @return
      */
     @PostMapping("/delete")
+    @ApiOperation(value = "客户-删除客户", notes = "客户-删除客户")
     public BaseResponseVO delete(@RequestBody ClientInfoParam param) {
         return BaseResponseVO.success(clientInfoService.delete(param));
     }
@@ -69,6 +75,7 @@ public class SysClientInfoController {
      * @return
      */
     @PostMapping("/update")
+    @ApiOperation(value = "客户-更改客户", notes = "客户-更改客户")
     public BaseResponseVO update(@RequestBody ClientInfoParam param) {
         return BaseResponseVO.success(clientInfoService.update(param));
     }
@@ -79,7 +86,8 @@ public class SysClientInfoController {
      * @param param
      * @return
      */
-    @GetMapping("/page")
+    @PostMapping("/page")
+    @ApiOperation(value = "客户-分页查询客户", notes = "客户-分页查询客户")
     public BaseResponseVO page(@RequestBody BasePageParam param) {
         return BaseResponseVO.success(clientInfoService.page(param));
     }
@@ -90,6 +98,7 @@ public class SysClientInfoController {
      * @return
      */
     @GetMapping("/list")
+    @ApiOperation(value = "客户-查询所有", notes = "客户-查询所有")
     public BaseResponseVO list() {
         return BaseResponseVO.success(clientInfoService.getAll());
     }
@@ -101,6 +110,7 @@ public class SysClientInfoController {
      * @return
      */
     @GetMapping("/{id}")
+    @ApiOperation(value = "客户-查询单个客户详情", notes = "客户-查询单个客户详情")
     public BaseResponseVO list(@PathVariable("id") String id) {
         return BaseResponseVO.success(clientInfoService.getById(Integer.parseInt(id)));
     }
