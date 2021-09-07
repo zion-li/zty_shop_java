@@ -36,3 +36,5 @@ swagger3:
   title: 做头呀
   description: 美发项目
   authHeaderKey: token
+knife4j:
+  enable: true

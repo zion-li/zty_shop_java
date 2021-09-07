@@ -1,5 +1,6 @@
 package com.zty.ztyshop.config;
 
+import com.github.xiaoymin.knife4j.spring.annotations.EnableKnife4j;
 import io.swagger.annotations.Api;
 import io.swagger.models.auth.In;
 import org.springframework.beans.factory.annotation.Value;
@@ -24,6 +25,7 @@ import java.util.List;
  */
 @EnableOpenApi
 @Configuration
+@EnableKnife4j
 public class Swagger3Config {
     @Value("${swagger3.enable}")
     private Boolean enableSwagger;
