@@ -16,7 +16,7 @@ import javax.validation.constraints.NotNull;
 public class LoginParam {
 
     @NotNull(message = "登录用户名称-不允许为空")
-    @ApiModelProperty(value = "登录用户名称", name = "username", required = true)
+    @ApiModelProperty(value = "登录用户名称-不需要加密", name = "username", required = true)
     private String username;
 
     @NotNull(message = "登录用户密码-不允许为空")

@@ -21,11 +21,35 @@ import java.util.Map;
  */
 public interface SysOrderInfoService extends IService<OrderInfo> {
 
+    /**
+     * 新增订单
+     *
+     * @param param
+     * @return
+     */
     Boolean add(OrderInfoParam param);
 
+    /**
+     * 删除
+     *
+     * @param param
+     * @return
+     */
     Boolean delete(OrderInfoParam param);
 
+    /**
+     * 更新
+     *
+     * @param param
+     * @return
+     */
     Boolean update(OrderInfoParam param);
 
+    /**
+     * 订单分页
+     *
+     * @param param
+     * @return
+     */
     Page<OrderInfoVO> page(BasePageParam param);
 }

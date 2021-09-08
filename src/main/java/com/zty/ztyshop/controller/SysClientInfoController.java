@@ -1,6 +1,9 @@
 package com.zty.ztyshop.controller;
 
 
+import com.fasterxml.jackson.databind.ser.Serializers;
+import com.zty.ztyshop.common.BaseEnum;
+import com.zty.ztyshop.common.BaseException;
 import com.zty.ztyshop.common.BaseResponseVO;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.ClientInfoParam;
@@ -8,6 +11,7 @@ import com.zty.ztyshop.service.SysClientInfoService;
 import com.zty.ztyshop.service.SysClientRankService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -111,7 +115,23 @@ public class SysClientInfoController {
      */
     @GetMapping("/{id}")
     @ApiOperation(value = "客户-查询单个客户详情", notes = "客户-查询单个客户详情")
-    public BaseResponseVO list(@PathVariable("id") String id) {
+    public BaseResponseVO getInfo(@PathVariable("id") String id) {
         return BaseResponseVO.success(clientInfoService.getById(Integer.parseInt(id)));
+    }
+
+    /**
+     * 通过手机号查询用户信息
+     *
+     * @return
+     */
+    @GetMapping("/search")
+    @ApiOperation(value = "客户-通过手机号查询用户信息(创建订单的时候，快速搜索用户)", notes = "客户-通过手机号查询用户信息")
+    public BaseResponseVO search(@RequestParam("modile") String modile) {
+
+        if (StringUtils.isBlank(modile)) {
+            throw new BaseException(BaseEnum.PHONE_ERROR);
+        }
+
+        return BaseResponseVO.success(clientInfoService.searchByModile(modile));
     }
 }

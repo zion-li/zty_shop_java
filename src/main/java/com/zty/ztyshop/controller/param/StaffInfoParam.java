@@ -15,7 +15,7 @@ import java.util.Date;
 @ApiModel(value = "员工信息", description = "员工信息")
 public class StaffInfoParam {
 
-    @ApiModelProperty(value = "主键", name = "id")
+    @ApiModelProperty(value = "删除、更新传;新增不传", name = "id")
     private Integer id;
 
     /**
@@ -81,6 +81,6 @@ public class StaffInfoParam {
     /**
      * 职称
      */
-    @ApiModelProperty(value = "职称", name = "rankName")
+    @ApiModelProperty(value = "分类（店长、美发师、助理啥的，直接要中文名）,调用/staffInfo/rank 下拉列表选择", name = "rankName")
     private String rankName;
 }

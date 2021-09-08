@@ -57,6 +57,7 @@ public class SysStaffInfoServiceImpl extends ServiceImpl<StaffInfoMapper, StaffI
         staffInfo.setEmploymentDate(employmentDate);
         staffInfo.setEmergencyContactName(param.getEmergencyContactName());
         staffInfo.setEmergencyContactMobile(param.getEmergencyContactMobile());
+        //新建的就是在职
         staffInfo.setResign(1);
 
         return staffInfoMapper.insert(staffInfo) == 1;
@@ -80,14 +81,18 @@ public class SysStaffInfoServiceImpl extends ServiceImpl<StaffInfoMapper, StaffI
 
         StaffInfo staffInfo = staffInfoMapper.selectById(param.getId());
         if (staffInfo == null) {
-            return false;
+            //当前员工不存在
+            throw new BaseException(BaseEnum.STAFF_NOT_EXIST);
         }
 
         if (StringUtils.isNotBlank(param.getName())) {
             //查询名字是否重复
             LambdaQueryWrapper<StaffInfo> queryWrapper = new LambdaQueryWrapper<>();
+            //id不等于
             queryWrapper.ne(StaffInfo::getId, param.getId());
+            //名称等于
             queryWrapper.eq(StaffInfo::getName, param.getName());
+
             //不允许添加为已经存在的名字
             if (staffInfoMapper.selectCount(queryWrapper) > 0) {
                 throw new BaseException(BaseEnum.STAFF_NAME_EXIST);
@@ -154,6 +159,18 @@ public class SysStaffInfoServiceImpl extends ServiceImpl<StaffInfoMapper, StaffI
      */
     @Override
     public List<StaffInfo> getAll() {
+        return staffInfoMapper.selectList(null);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    public List<StaffInfo> activeList() {
+        //查询名字是否重复
+        LambdaQueryWrapper<StaffInfo> queryWrapper = new LambdaQueryWrapper<>();
+        //id不等于
+        queryWrapper.eq(StaffInfo::getResign, 1);
         return staffInfoMapper.selectList(null);
     }
 }

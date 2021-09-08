@@ -47,4 +47,12 @@ public interface SysClientInfoService extends IService<ClientInfo> {
      * @return
      */
     List<ClientInfo> getAll();
+
+    /**
+     * 通过手机号查询
+     *
+     * @param modile
+     * @return
+     */
+    List<ClientInfo> searchByModile(String modile);
 }

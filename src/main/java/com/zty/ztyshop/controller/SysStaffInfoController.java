@@ -43,7 +43,7 @@ public class SysStaffInfoController {
      * @return
      */
     @GetMapping("/rank")
-    @ApiOperation(value = "员工-所有员工的分类", notes = "员工-所有员工的分类")
+    @ApiOperation(value = "员工-查询所有员工的分类（店长、美发师、助理啥的）", notes = "员工-所有员工的分类")
     public BaseResponseVO rank() {
         return BaseResponseVO.success(staffRankService.getAll());
     }
@@ -98,13 +98,25 @@ public class SysStaffInfoController {
     }
 
     /**
-     * 所有
+     * 所有包含离职
      *
      * @return
      */
     @GetMapping("/list")
-    @ApiOperation(value = "员工-所有列表", notes = "员工-所有列表")
+    @ApiOperation(value = "员工-包含离职列表", notes = "员工-包含离职列表")
     public BaseResponseVO list() {
         return BaseResponseVO.success(infoService.getAll());
+    }
+
+
+    /**
+     * 所有（只有在职）
+     *
+     * @return
+     */
+    @GetMapping("/activeList")
+    @ApiOperation(value = "员工-所有在职员工列表", notes = "员工-所有在职员工列表")
+    public BaseResponseVO activeList() {
+        return BaseResponseVO.success(infoService.activeList());
     }
 }

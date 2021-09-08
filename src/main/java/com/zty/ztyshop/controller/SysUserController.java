@@ -37,4 +37,11 @@ public class SysUserController {
         return BaseResponseVO.success(userService.LogOut());
     }
 
+
+    @GetMapping("/createPass")
+    @ApiOperation(value = "密码-生成数据库密码", notes = "密码-生成数据库密码")
+    public BaseResponseVO createPass(@RequestParam("pass") String pass) {
+        return BaseResponseVO.success(userService.createPass(pass));
+    }
+
 }

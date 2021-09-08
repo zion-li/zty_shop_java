@@ -17,7 +17,7 @@ import java.util.Date;
 @ApiModel(value = "客户信息参数", description = "客户信息参数")
 public class ClientInfoParam {
 
-    @ApiModelProperty(value = "主键", name = "id")
+    @ApiModelProperty(value = "主键，新增不需要；更新、删除需要传", name = "id")
     private Integer id;
 
     /**
@@ -29,7 +29,7 @@ public class ClientInfoParam {
     /**
      * 等级
      */
-    @ApiModelProperty(value = "等级", name = "rankName")
+    @ApiModelProperty(value = "等级（/clientInfo/rank接口获取的）（vip、黄金、白银、普通啥的）传中文就行", name = "rankName")
     private String rankName;
 
     /**
@@ -53,12 +53,12 @@ public class ClientInfoParam {
     /**
      * 消费金额
      */
-    @ApiModelProperty(value = "消费金额（元）", name = "account")
+    @ApiModelProperty(value = "消费金额（元）新增为0", name = "account")
     private String account;
 
     /**
      * 服务次数
      */
-    @ApiModelProperty(value = "服务次数", name = "serviceTime")
+    @ApiModelProperty(value = "服务次数（就是剪头发几次了，新增为0）", name = "serviceTime")
     private Integer serviceTime;
 }

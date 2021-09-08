@@ -53,4 +53,6 @@ public interface SysStaffInfoService extends IService<StaffInfo> {
      * @return
      */
     List<StaffInfo> getAll();
+
+    List<StaffInfo> activeList();
 }

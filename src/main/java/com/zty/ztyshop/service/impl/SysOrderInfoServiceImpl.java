@@ -57,10 +57,18 @@ public class SysOrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderI
     @Transactional(rollbackFor = Exception.class)
     public Boolean add(OrderInfoParam param) {
         //参数校验
+        if (null == param.getClientId()) {
+            throw new BaseException(BaseEnum.PARAM_ERROR);
+        }
+
+        if (null == param.getStaffId()) {
+            throw new BaseException(BaseEnum.PARAM_ERROR);
+        }
+
         ClientInfo clientInfo = clientInfoMapper.selectById(param.getClientId());
         if (clientInfo == null) {
             //当前用户不存在
-            throw new BaseException(BaseEnum.USER_ID_NOT_EXIST_ERROR);
+            throw new BaseException(BaseEnum.CLIENT_NOT_EXIST);
         }
 
         OrderInfo orderInfo = new OrderInfo();
@@ -136,11 +144,27 @@ public class SysOrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderI
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public Boolean update(OrderInfoParam param) {
+        //参数校验
+        if (null == param.getClientId()) {
+            throw new BaseException(BaseEnum.PARAM_ERROR);
+        }
+
+        ClientInfo clientInfo = clientInfoMapper.selectById(param.getClientId());
+
+        if (clientInfo == null) {
+            //当前用户不存在
+            throw new BaseException(BaseEnum.CLIENT_NOT_EXIST);
+        }
+
         OrderInfo orderInfo = orderInfoMapper.selectById(param.getId());
         if (orderInfo == null) {
             return false;
         }
+
+        BigDecimal cash = orderInfo.getCashAccount();
+
         //客户id
         if (param.getClientId() != null) {
             orderInfo.setClientId(param.getClientId());
@@ -244,14 +268,28 @@ public class SysOrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderI
 
         orderInfo.setUpdateAt(LocalDateTime.now());
 
-        return orderInfoMapper.updateById(orderInfo) == 1;
+        if (orderInfoMapper.updateById(orderInfo) == 1) {
+            //更新消费金额
+            if (param.getCashAccount() != null) {
+                BigDecimal amount = clientInfo.getAccount().add(new BigDecimal(param.getCashAccount()));
+                if (amount.compareTo(cash) != 0) {
+                    clientInfo.setAccount(clientInfo.getAccount().subtract(cash).add(amount));
+                    return clientInfoMapper.updateById(clientInfo) == 1;
+                }
+            }
+        }
+        return false;
     }
 
     @Override
     public Page<OrderInfoVO> page(BasePageParam param) {
 
         Page<OrderInfo> page = new Page<>(param.getPageNo(), param.getPageSize());
-        Page<OrderInfo> orderInfoPage = orderInfoMapper.selectPage(page, null);
+
+        LambdaQueryWrapper<OrderInfo> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(OrderInfo::getId);
+
+        Page<OrderInfo> orderInfoPage = orderInfoMapper.selectPage(page, queryWrapper);
 
 
         //结果
@@ -266,59 +304,123 @@ public class SysOrderInfoServiceImpl extends ServiceImpl<OrderInfoMapper, OrderI
 
             //用户
             ClientInfo clientInfo = clientInfoMapper.selectById(o.getClientId());
-            tmp.setClientName(clientInfo == null ? "" : clientInfo.getName());
+            tmp.setClientName(clientInfo == null ? "未知用户" : clientInfo.getName());
 
             //发型师
             StaffInfo staffInfo;
             staffInfo = staffInfoMapper.selectById(o.getStaffId());
-            tmp.setStaffName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setStaffName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setStaffName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
 
             //剪发
             staffInfo = staffInfoMapper.selectById(o.getCashJfAssistant());
-            tmp.setCashJfAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashJfAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashJfAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //烫发
             staffInfo = staffInfoMapper.selectById(o.getCashTfAssistant());
-            tmp.setCashTfAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashTfAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashTfAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //染发
             staffInfo = staffInfoMapper.selectById(o.getCashRfAssistant());
-            tmp.setCashRfAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashRfAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashRfAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //头皮
             staffInfo = staffInfoMapper.selectById(o.getCashTpAssistant());
-            tmp.setCashTpAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashTpAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashTpAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //造型
             staffInfo = staffInfoMapper.selectById(o.getCashZxAssistant());
-            tmp.setCashZxAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashZxAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashZxAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //营养
             staffInfo = staffInfoMapper.selectById(o.getCashYyAssistant());
-            tmp.setCashYyAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashYyAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashYyAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //水洗
             staffInfo = staffInfoMapper.selectById(o.getCashSxAssistant());
-            tmp.setCashSxAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashSxAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashSxAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //速焗
             staffInfo = staffInfoMapper.selectById(o.getCashSjAssistant());
-            tmp.setCashSjAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashSjAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashSjAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
 
             //速焗
             staffInfo = staffInfoMapper.selectById(o.getCashSpAssistant());
-            tmp.setCashSpAssistantName(staffInfo == null ? "" : staffInfo.getName());
+            if (staffInfo != null) {
+                if (staffInfo.getResign() == 1) {
+                    tmp.setCashSpAssistantName(staffInfo == null ? "未知" : staffInfo.getName());
+                } else {
+                    tmp.setCashSpAssistantName(staffInfo == null ? "未知" : "离职-" + staffInfo.getName());
+                }
+            }
+
             records.add(tmp);
         }
 
         result.setRecords(records);
         return result;
     }
-
-
-
-
-
 
 
 }

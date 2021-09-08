@@ -71,6 +71,11 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         return true;
     }
 
+    @Override
+    public String createPass(String pass) {
+        return passwordEncoder.encode(pass);
+    }
+
 
     private String createToken(String userId, String userName) {
         //生成token

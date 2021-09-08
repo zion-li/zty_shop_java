@@ -25,7 +25,16 @@ public interface SysUserService extends IService<SysUser> {
 
     /**
      * 登出
+     *
      * @return
      */
     Boolean LogOut();
+
+    /**
+     * 生成密码
+     *
+     * @param pass
+     * @return
+     */
+    String createPass(String pass);
 }

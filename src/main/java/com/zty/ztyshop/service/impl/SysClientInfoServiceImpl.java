@@ -8,6 +8,7 @@ import com.zty.ztyshop.common.BaseEnum;
 import com.zty.ztyshop.controller.param.BasePageParam;
 import com.zty.ztyshop.controller.param.ClientInfoParam;
 import com.zty.ztyshop.dao.entity.ClientInfo;
+import com.zty.ztyshop.dao.entity.OrderInfo;
 import com.zty.ztyshop.dao.mapper.ClientInfoMapper;
 import com.zty.ztyshop.service.SysClientInfoService;
 import org.apache.commons.lang3.StringUtils;
@@ -49,6 +50,7 @@ public class SysClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, Clie
         LambdaQueryWrapper<ClientInfo> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(ClientInfo::getName, param.getName());
         queryWrapper.eq(ClientInfo::getModile, param.getModile());
+
         //不允许添加为已经存在的名字
         if (clientInfoMapper.selectCount(queryWrapper) > 0) {
             throw new BaseException(BaseEnum.CLIENT_NAME_EXIST);
@@ -66,6 +68,7 @@ public class SysClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, Clie
         //消费金额
         String sum = StringUtils.isBlank(param.getAccount()) ? "0" : param.getAccount();
         clientInfo.setAccount(new BigDecimal(sum));
+
         //服务次数
         clientInfo.setServiceTime(0);
 
@@ -87,13 +90,13 @@ public class SysClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, Clie
     public Boolean update(ClientInfoParam param) {
 
         if (param.getId() == null) {
-            return false;
+            throw new BaseException(BaseEnum.PARAM_ERROR);
         }
 
         ClientInfo clientInfo = clientInfoMapper.selectById(param.getId());
 
         if (clientInfo == null) {
-            return false;
+            throw new BaseException(BaseEnum.CLIENT_NOT_EXIST);
         }
 
         //判断用户+手机号是否存在
@@ -102,16 +105,8 @@ public class SysClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, Clie
             LambdaQueryWrapper<ClientInfo> queryWrapper = new LambdaQueryWrapper<>();
             queryWrapper.ne(ClientInfo::getId, param.getId());
 
-            if (StringUtils.isNotBlank(param.getName())) {
-                queryWrapper.eq(ClientInfo::getName, param.getName());
-            } else {
-                queryWrapper.eq(ClientInfo::getName, clientInfo.getName());
-            }
-            if (StringUtils.isNotBlank(param.getModile())) {
-                queryWrapper.eq(ClientInfo::getModile, param.getModile());
-            } else {
-                queryWrapper.eq(ClientInfo::getModile, clientInfo.getModile());
-            }
+            queryWrapper.eq(ClientInfo::getName, StringUtils.isBlank(param.getName()) ? clientInfo.getName() : param.getName());
+            queryWrapper.eq(ClientInfo::getModile, StringUtils.isBlank(param.getModile()) ? clientInfo.getName() : param.getModile());
 
             //不允许添加为已经存在的名字
             if (clientInfoMapper.selectCount(queryWrapper) > 0) {
@@ -164,7 +159,14 @@ public class SysClientInfoServiceImpl extends ServiceImpl<ClientInfoMapper, Clie
         return clientInfoMapper.selectList(null);
     }
 
+    @Override
+    public List<ClientInfo> searchByModile(String modile) {
 
+        LambdaQueryWrapper<ClientInfo> queryWrapper = new LambdaQueryWrapper();
+        queryWrapper.like(ClientInfo::getModile, modile);
+
+        return clientInfoMapper.selectList(queryWrapper);
+    }
 
 
     private LocalDate getLocalDate(String dataStr) {

@@ -10,7 +10,7 @@ public enum BaseEnum {
     /**
      * 参数异常
      */
-    PASSWORD_ERROR(4001, "用户不从在或者密码错误，请重试"),
+    PASSWORD_ERROR(4001, "用户不存在或者密码错误，请重试"),
     PARAM_ERROR(4001, "参数异常"),
     PHONE_ERROR(4001, "手机号错误"),
     SIGN_ERROR(4001, "签名异常"),
@@ -33,10 +33,12 @@ public enum BaseEnum {
     DECRIPTION_ERROR(4001, "生成密钥异常"),
     AES_PUBLIC_NOT_EXIT_ERROR(4001, "当前用户没有建立非对称加密通道"),
     LEVEL_NAME_EXIST(4001, "当前职称已经存在"),
-    STAFF_NAME_EXIST(4001, "员工名称已存在,请给明天添加一个特殊标识"),
+    STAFF_NAME_EXIST(4001, "员工名称已存在,请给名字添加一个特殊标识"),
+    STAFF_NOT_EXIST(4001, "当前员工不存在"),
     CLIENT_LEVEL_NAME_EXIST(4001, "当前等级已经存在"),
-    CLIENT_NAME_ERROR(4001, "用户名称错误"),
-    CLIENT_NAME_EXIST(4001, "当前用户+手机号的组合已经存在"),
+    CLIENT_NAME_ERROR(4001, "客户名称错误"),
+    CLIENT_NAME_EXIST(4001, "当前客户+手机号的组合已经存在"),
+    CLIENT_NOT_EXIST(4001, "当前客户不存在"),
     VIP_NEED_MOBILE(4001, "会员必须有手机号");
 
 

@@ -30,6 +30,9 @@ public class SysClientRankServiceImpl extends ServiceImpl<ClientRankMapper, Clie
     public List<ClientRank> getAll() {
         LambdaQueryWrapper<ClientRank> queryWrapper = new LambdaQueryWrapper<>();
 
+        //升序
+        queryWrapper.orderByAsc(ClientRank::getId);
+
         List<ClientRank> result = clientRankMapper.selectList(queryWrapper);
 
         return result;

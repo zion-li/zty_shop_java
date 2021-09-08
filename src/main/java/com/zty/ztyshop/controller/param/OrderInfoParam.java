@@ -13,20 +13,23 @@ import lombok.Data;
 @ApiModel(value = "管理员-订单信息", description = "管理员-订单信息")
 public class OrderInfoParam {
     //id
-    @ApiModelProperty(value = "逐渐", name = "id")
+    @ApiModelProperty(value = "主键 删除更新用", name = "id")
     private Integer id;
+
     //用户唯一标识
-    @ApiModelProperty(value = "用户ID", name = "clientId")
+    @ApiModelProperty(value = "用户ID（）", name = "clientId")
     private Integer clientId;
+
     //发型师
     @ApiModelProperty(value = "发型师-人员ID", name = "staffId")
     private Integer staffId;
 
     //现金
-    @ApiModelProperty(value = "现金（类型）", name = "cashType")
+    @ApiModelProperty(value = "现金（类型）做成输入框吧", name = "cashType")
     private String cashType;
 
-    @ApiModelProperty(value = "现金-金额（元）", name = "cashAccount")
+
+    @ApiModelProperty(value = "现金-金额（元）那种带上下箭头可以调整数字的", name = "cashAccount")
     private String cashAccount;
 
     //剪发业绩

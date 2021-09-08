@@ -75,7 +75,5 @@ public class SysOrderInfoController {
     public BaseResponseVO page(@RequestBody BasePageParam param) {
         return BaseResponseVO.success(orderInfoService.page(param));
     }
-
-
 }
 

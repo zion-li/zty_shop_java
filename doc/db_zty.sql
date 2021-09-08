@@ -88,7 +88,7 @@ DROP TABLE IF EXISTS `staff_info`;
 CREATE TABLE `staff_info`  (
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
   `name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '员工名称',
-  `rank_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '职称',
+  `rank_name` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '员工职称',
   `birthday` date NULL DEFAULT NULL COMMENT '员工生日',
   `gender` tinyint(1) NOT NULL COMMENT '性别(0 女，1 男)',
   `adress` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '联系地址',
