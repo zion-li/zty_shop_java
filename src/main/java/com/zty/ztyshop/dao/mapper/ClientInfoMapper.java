@@ -1,12 +1,7 @@
 package com.zty.ztyshop.dao.mapper;
 
-import com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO;
 import com.zty.ztyshop.dao.entity.ClientInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Param;
-
-import java.time.LocalDate;
-import java.util.List;
 
 /**
  * <p>
@@ -14,12 +9,8 @@ import java.util.List;
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-05-16
+ * @since 2021-11-25
  */
 public interface ClientInfoMapper extends BaseMapper<ClientInfo> {
 
-    List<StatisticsLast30DaysBO> statisticsNewLast(@Param("minDate") LocalDate minDate);
-
-
-    List<StatisticsLast30DaysBO> statisticsReturn(@Param("minDate") LocalDate minDate);
 }

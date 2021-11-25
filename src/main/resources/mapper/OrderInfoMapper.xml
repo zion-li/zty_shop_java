@@ -7,8 +7,10 @@
         <id column="id" property="id" />
         <result column="client_id" property="clientId" />
         <result column="staff_id" property="staffId" />
+        <result column="account" property="account" />
         <result column="cash_type" property="cashType" />
         <result column="cash_account" property="cashAccount" />
+        <result column="cash_account_assistant" property="cashAccountAssistant" />
         <result column="cash_jf" property="cashJf" />
         <result column="cash_jf_assistant" property="cashJfAssistant" />
         <result column="cash_tf" property="cashTf" />

@@ -5,11 +5,11 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
  * <p>
- *  Mapper 接口
+ * 员工职称表 Mapper 接口
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-05-16
+ * @since 2021-11-25
  */
 public interface StaffRankMapper extends BaseMapper<StaffRank> {
 

@@ -6,14 +6,15 @@
     <resultMap id="BaseResultMap" type="com.zty.ztyshop.dao.entity.ClientInfo">
         <id column="id" property="id" />
         <result column="name" property="name" />
-        <result column="modile" property="modile" />
-        <result column="rank_name" property="rankName" />
+        <result column="mobile" property="mobile" />
+        <result column="address" property="address" />
+        <result column="rank" property="rank" />
         <result column="gender" property="gender" />
         <result column="birthday" property="birthday" />
         <result column="account" property="account" />
         <result column="last_login" property="lastLogin" />
-        <result column="service_time" property="serviceTime" />
-        <result column="create_at" property="createAt"/>
+        <result column="service_times" property="serviceTimes" />
+        <result column="create_at" property="createAt" />
     </resultMap>
 
     <select id="statisticsNewLast" resultType="com.zty.ztyshop.controller.bo.StatisticsLast30DaysBO">
