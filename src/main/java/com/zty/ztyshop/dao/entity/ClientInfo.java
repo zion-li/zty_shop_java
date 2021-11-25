@@ -9,6 +9,7 @@ import java.time.LocalDate;
 
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
+import lombok.ToString;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
@@ -19,9 +20,10 @@ import java.io.Serializable;
  * </p>
  *
  * @author 李佳 zion
- * @since 2021-05-16
+ * @since 2021-11-25
  */
 @Data
+@ToString
 public class ClientInfo extends Model<ClientInfo> {
 
     private static final long serialVersionUID = 1L;
@@ -37,17 +39,22 @@ public class ClientInfo extends Model<ClientInfo> {
     /**
      * 手机号
      */
-    private String modile;
+    private String mobile;
+
+    /**
+     * 联系地址
+     */
+    private String address;
 
     /**
      * 用户等级
      */
-    private String rankName;
+    private Integer rank;
 
     /**
      * 性别（0女、1男）
      */
-    private Integer gender;
+    private Boolean gender;
 
     /**
      * 顾客生日
@@ -55,7 +62,7 @@ public class ClientInfo extends Model<ClientInfo> {
     private LocalDate birthday;
 
     /**
-     * 总体消费
+     * 总共消费金额
      */
     private BigDecimal account;
 
@@ -67,7 +74,8 @@ public class ClientInfo extends Model<ClientInfo> {
     /**
      * 服务次数
      */
-    private Integer serviceTime;
+    private Integer serviceTimes;
+
     /**
      * 创建时间
      */
